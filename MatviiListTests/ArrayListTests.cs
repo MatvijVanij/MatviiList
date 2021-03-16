@@ -12,9 +12,9 @@ namespace MatviiListTests
         public void InitializationArray_WhenAraaysLoaded_ShoudReternMinElementArrays(int[] a, int expected)
         {
             var t = new ArrayList();
-            //int actual = OneArrays.OutputMinElementsArray(a);
+            int actual = OneArrays.OutputMinElementsArray(a);
 
-            //Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
     }
 }
