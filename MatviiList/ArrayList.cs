@@ -17,22 +17,154 @@ namespace MatviiList
             _array = new int[10];
         }
 
-        public void InitializationArray(int[] initArray)
+        public ArrayList(int element)
         {
+            Length = 1;
+
+            _array = new int[10];
+            _array[0] = element;
+        }
+
+        public ArrayList(int[] initArray)
+        {
+            Length = 0;
+            _array = new int[initArray.Length];
+
             for (int i = 0; i < initArray.Length; i++)
             {
-                AddingOneValuesToTheEnd(initArray[i]);
+                AddBack(initArray[i]);
             }
         }
 
-        public void AddingOneValuesToTheEnd(int value)
+        public void AddBack(int value)
         {
             if (Length == _array.Length)
             {
                 IncreaseTheArrayByAThird();
             }
-            _array[Length] = value;
+
+            _array[Length++] = value;
+        }
+
+        public void AddFront(int value)
+        {
+            if (Length == _array.Length)
+            {
+                IncreaseTheArrayByAThird();
+            }
+
+            for (int i = Length; i <= 0; --i)
+            {
+                _array[i + 1] = _array[i];
+            }
+            _array[0] = value;
             Length++;
+        }
+
+        public void AddByIndex(int value, int index)
+        {
+            if (Length >= _array.Length)
+            {
+                IncreaseTheArrayByAThird();
+            }
+
+            for (int i = Length + 1; i >= index; i--)
+            {
+                _array[i + 1] = _array[i];
+            }
+
+            _array[index] = value;
+            Length++;
+        }
+
+        public void DeleteBack()
+        {
+            if (Length == _array.Length / 2)
+            {
+                DecreaseTheArrayByAThird();
+            }
+            Length--;
+        }
+
+        public void DeleteFront()
+        {
+            if (Length <= _array.Length / 2)
+            {
+                DecreaseTheArrayByAThird();
+            }
+            for (int i = 0; i < Length; i++)
+            {
+                _array[i] = _array[i + 1];
+            }
+
+            Length--;
+        }
+
+        public void DeleteOneValuesByIndex(int index)
+        {
+            if (Length <= _array.Length / 2)
+            {
+                DecreaseTheArrayByAThird();
+            }
+            for (int i = index; i < Length; i++)
+            {
+                _array[i] = _array[i + 1];
+            }
+
+            Length--;
+        }
+
+        public void DeleteSomeValuesBack(int quantity)
+        {
+            Length -= Length >= quantity ? quantity : Length;
+            if (Length <= _array.Length / 2)
+            {
+                DecreaseTheArrayByAThird();
+            }
+        }
+
+        public void DeleteSomeValuesToFront(int quantity)
+        {
+            if (quantity > 0)
+            {
+                Length -= Length >= quantity ? quantity : Length;
+                if (Length == _array.Length)
+                {
+                    IncreaseTheArrayByAThird();
+                }
+
+                for (int i = quantity - 1; i < Length; --i)
+                {
+                    _array[i + 1] = _array[i];
+                }
+                Length++;
+            }
+        }
+
+
+        public void DeleteSomeValuesByIndex(int quantity, int index)
+        {
+            if (Length / 2 == _array.Length)
+            {
+                DecreaseTheArrayByAThird();
+            }
+            int newlenght = Length - quantity;
+            int[] tempArray = new int[newlenght];
+            for (int i = 0; i < index; i++)
+            {
+                tempArray[i] = _array[i];
+            }
+            for (int i = index; i < newlenght; i++)
+            {
+                tempArray[i] = _array[i - quantity];
+            }
+            _array = tempArray;
+            Length = newlenght;
+        }
+
+        public void Reverse()
+        {
+
         }
 
         private void IncreaseTheArrayByAThird()
@@ -41,7 +173,7 @@ namespace MatviiList
 
             int[] tmpArray = new int[newLength];
 
-            for (int i = 0; i < _array.Length; i++)
+            for (int i = 0; i < Length; i++)
             {
                 tmpArray[i] = _array[i];
             }
@@ -62,134 +194,17 @@ namespace MatviiList
 
             _array = tmpArray;
         }
-        public void AddingOneValuesToTheBeginning(int value)
+        private void ResizeTheArrayByAThird(bool updoun)
         {
-            if (Length == _array.Length)
-            {
-                IncreaseTheArrayByAThird();
-            }
-            int[] tempArray = new int[Length + 1];
+            int newLength = updoun ? (int)(_array.Length * 0.66d + 1) : (int)(_array.Length * 0.66d + 1);
+            int[] tmpArray = new int[newLength];
             for (int i = 0; i < Length; i++)
             {
-                tempArray[i + 1] = _array[i];
+                tmpArray[i] = _array[i];
             }
-            tempArray[0] = value;
-            _array = tempArray;
-            Length++;
-        }
-        public void AddingOneValuesByIndex(int value, int index)
-        {
-            if (Length == _array.Length)
-            {
-                IncreaseTheArrayByAThird();
-            }
-            int[] tempArray = new int[Length + 1];
-            for (int i = 0; i < index; i++)
-            {
-                tempArray[i] = _array[i];
-            }
-            for (int i = index; i < Length; i++)
-            {
-                tempArray[i + 1] = _array[i];
-            }
-            tempArray[index] = value;
-            _array = tempArray;
-            Length++;
-        }
-        public void DeleteOneValuesToTheEnd()
-        {
-            if (Length / 2 == _array.Length)
-            {
-                DecreaseTheArrayByAThird();
-            }
-            int[] tempArray = new int[Length];
-            for (int i = 0; i < Length - 1; i++)
-            {
-                tempArray[i] = _array[i];
-            }
-            _array = tempArray;
-            Length--;
-        }
-        public void DeleteOneValuesToTheBeginning()
-        {
-            if (Length / 2 == _array.Length)
-            {
-                DecreaseTheArrayByAThird();
-            }
-            int[] tempArray = new int[Length - 1];
-            for (int i = 0; i < Length - 1; i++)
-            {
-                tempArray[i] = _array[i + 1];
-            }
-            _array = tempArray;
-            Length--;
-        }
-        public void DeleteOneValuesByIndex(int index)
-        {
-            if (Length / 2 == _array.Length)
-            {
-                DecreaseTheArrayByAThird();
-            }
-            int[] tempArray = new int[Length - 1];
-            for (int i = 0; i < index; i++)
-            {
-                tempArray[i] = _array[i];
-            }
-            for (int i = index; i < Length; i++)
-            {
-                tempArray[i] = _array[i + 1];
-            }
-            _array = tempArray;
-            Length--;
-        }
-        public void DeleteSomeValuesToTheEnd(int quantity)
-        {
-            if (Length/2 == _array.Length)
-            {
-                DecreaseTheArrayByAThird();
-            }
-            int newlenght = Length - quantity;
-            int[] tempArray = new int[newlenght];
-            for (int i = 0; i < newlenght; i++)
-            {
-                tempArray[i] = _array[i];
-            }
-            _array = tempArray;
-            Length = newlenght;
-        }
-        public void DeleteSomeValuesToTheBeginning(int quantity)
-        {
-            if (Length/2 == _array.Length)
-            {
-                DecreaseTheArrayByAThird();
-            }
-            int newlenght = Length - quantity;
-            int[] tempArray = new int[newlenght];
-            for (int i = quantity; i < Length; i++)
-            {
-                tempArray[i] = _array[i];
-            }
-            _array = tempArray;
-            Length = newlenght;
-        }
-        public void DeleteSomeValuesByIndex(int quantity, int index)
-        {
-            if (Length/2 == _array.Length)
-            {
-                DecreaseTheArrayByAThird();
-            }
-            int newlenght = Length - quantity;
-            int[] tempArray = new int[newlenght];
-            for (int i = 0; i < index; i++)
-            {
-                tempArray[i] = _array[i];
-            }
-            for (int i = index; i < newlenght; i++)
-            {
-                tempArray[i] = _array[i - quantity];
-            }
-            _array = tempArray;
-            Length = newlenght;
+
+            _array = tmpArray;
         }
     }
+
 }
