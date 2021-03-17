@@ -32,11 +32,11 @@ namespace MatviiList
 
             for (int i = 0; i < initArray.Length; i++)
             {
-                AddBack(initArray[i]);
+                Add(initArray[i]);
             }
         }
 
-        public void AddBack(int value)
+        public void Add(int value)
         {
             if (Length == _array.Length)
             {
@@ -78,7 +78,7 @@ namespace MatviiList
             Length++;
         }
 
-        public void DeleteBack()
+        public void RemoveBack()
         {
             if (Length < _array.Length / 2)
             {
@@ -88,7 +88,7 @@ namespace MatviiList
             Length--;
         }
 
-        public void DeleteFront()
+        public void RemoveFront()
         {
             if (Length <= _array.Length / 2)
             {
@@ -102,7 +102,7 @@ namespace MatviiList
             Length--;
         }
 
-        public void DeleteOneByIndex(int index)
+        public void RemoveByIndex(int index)
         {
             if (Length <= _array.Length / 2)
             {
@@ -116,7 +116,7 @@ namespace MatviiList
             Length--;
         }
 
-        public void DeleteNValuesBack(int nElements)
+        public void RemoveNValuesBack(int nElements)
         {
             Length -= Length >= nElements ? nElements : Length;
 
@@ -126,7 +126,7 @@ namespace MatviiList
             }
         }
 
-        public void DeleteNValuesToFront(int nElements)
+        public void RemoveNValuesToFront(int nElements)
         {
             if (nElements > 0)
             {
@@ -144,7 +144,7 @@ namespace MatviiList
             }
         }
 
-        public void DeleteSomeValuesByIndex(int nElements, int index)
+        public void RemoveNValuesByIndex(int nElements, int index)
         {
             if (Length / 2 == _array.Length)
             {
@@ -217,7 +217,7 @@ namespace MatviiList
             }
         }
 
-        public int MaxIndexOfElement()
+        public int GetMaxIndex()
         {
             int maxIndexOfElement = 0;
             for (int i = 1; i < Length; i++)
@@ -231,7 +231,7 @@ namespace MatviiList
             return maxIndexOfElement;
         }
 
-        public int MinIndexOfElement()
+        public int GetMinIndex()
         {
             int minIndexOfElement = 0;
             for (int i = 1; i < Length; i++)
@@ -245,14 +245,14 @@ namespace MatviiList
             return minIndexOfElement;
         }
 
-        public int MaxElement()
+        public int Max()
         {
-            return _array[MaxIndexOfElement()];
+            return _array[GetMaxIndex()];
         }
 
-        public int MinElement()
+        public int Min()
         {
-            return _array[MinIndexOfElement()];
+            return _array[GetMinIndex()];
         }
 
         public void SortIncrease(int array)
@@ -283,19 +283,19 @@ namespace MatviiList
             }
         }
 
-        public void DeleteFirstValue(int value)
+        public void RemoveFirstValue(int value)
         {
-            DeleteOneByIndex(FirstIndexByValue(value));
+            RemoveByIndex(FirstIndexByValue(value));
         }
 
-        public int DeleteAllForValue(int value)
+        public int RemoveAllForValue(int value)
         {
             int count = 0;
             int index = FirstIndexByValue(value);
 
             while (index != -1)
             {
-                DeleteOneByIndex(index);
+                RemoveByIndex(index);
                 count++;
             }
 
@@ -315,11 +315,11 @@ namespace MatviiList
             _array = tempArray;
         }
 
-        private static void Swap(ref int a, ref int b)
+        private static void Swap(ref int indexI, ref int indexJ)
         {
-            int c = a;
-            a = b;
-            b = c;
+            int c = indexI;
+            indexI = indexJ;
+            indexJ = c;
         }
     }
 

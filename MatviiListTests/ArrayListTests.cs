@@ -5,16 +5,26 @@ namespace MatviiListTests
 {
     public class Tests
     {
-        [TestCase(new int[] { 1, 1, 4, 0 }, 0)]
-        [TestCase(new int[] { -5, -1, 3 }, -5)]
-        [TestCase(new int[] { -14, 1, 2 }, -14)]
-        [TestCase(new int[] { -10, 0, 4 }, -10)]
-        public void InitializationArray_WhenAraaysLoaded_ShoudReternMinElementArrays(int[] a, int expected)
+        [TestCase(2, 3, 19)]
+        [TestCase(0, 5, 5)]
+        [TestCase(4, 0, -5)]
+        [TestCase(10, 4, -11)]
+        public void SolvingEquations_WhenABSubstituteInEquation_ShouldSolveEquation(int a, int b, int expected)
         {
-            var t = new ArrayList();
-            int actual = OneArrays.OutputMinElementsArray(a);
+            int actual = ArrayList.(a, b);
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(0, 0)]
+        [TestCase(1, 1)]
+        [TestCase(-1, -1)]
+        public void SolvingEquations_WhenAEqualB_ShouldThrowDividedByZeroException(int a, int b)
+        {
+            Assert.Throws<DivideByZeroException>(() =>
+            {
+                Variables.SolvingEquations(a, b);
+            });
         }
     }
 }
