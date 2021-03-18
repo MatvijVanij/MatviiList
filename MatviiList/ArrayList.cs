@@ -18,7 +18,11 @@ namespace MatviiList
             }
             set
             {
-                _array[index] = value;
+                if (index >= Length || index<0)
+                {
+                    _array[index] = value;
+                }
+                throw new ArgumentOutOfRangeException("Index out of range");
             }
         }
 
@@ -188,30 +192,30 @@ namespace MatviiList
         {
         }
 
-        public int GetValueByIndex(int index)
-        {
-            if (index < Length && index >= 0)
-            {
-                return _array[index];
-            }
+        //public int GetValueByIndex(int index)
+        //{
+        //    if (index < Length && index >= 0)
+        //    {
+        //        return _array[index];
+        //    }
 
-            throw new IndexOutOfRangeException("Index Out Of Randge ");
-        }
+        //    throw new IndexOutOfRangeException("Index Out Of Randge ");
+        //}
 
-        public int GetIndexByValue(int value)
-        {
+        //public int GetIndexByValue(int value)
+        //{
 
-            for (int i = 0; i < Length; i++)
-            {
-                if (value == _array[i])
-                {
-                    return i;
-                }
-            }
+        //    for (int i = 0; i < Length; i++)
+        //    {
+        //        if (value == _array[i])
+        //        {
+        //            return i;
+        //        }
+        //    }
 
-            return -1;
+        //    return -1;
 
-        }
+        //}
 
         public void ChangeByIndex(int value, int index)
         {
@@ -364,7 +368,7 @@ namespace MatviiList
             }
             else if ((newLength <= _array.Length / 2) && (newLength > 10))
             {
-                newLength = (int)(newLength * 0.66d + 1);
+                newLength = (int)(newLength * 1.33d + 1);
                 newArray(newLength);
             }
             else if (newLength < 0)
