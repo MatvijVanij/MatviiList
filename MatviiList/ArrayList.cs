@@ -6,9 +6,42 @@ namespace MatviiList
 {
     public class ArrayList
     {
+
         public int Length { get; private set; }
 
         private int[] _array;
+
+        public ArrayList()
+        {
+            Length = 0;
+            _array = new int[10];
+        }
+
+        public ArrayList(int el)
+        {
+            Length = 0;
+            _array = new int[10];
+
+            AddFirst(el);
+        }
+
+        public ArrayList(int[] initArray)
+        {
+            if (!(initArray == null))
+            {
+                Length = 0;
+                _array = new int[initArray.Length];
+
+                for (int i = 0; i < initArray.Length; i++)
+                {
+                    AddLast(initArray[i]);
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Ti she duurak? kuda null pihaech?");
+            }
+        }
 
         public int this[int index]
         {
@@ -16,211 +49,71 @@ namespace MatviiList
             {
                 return _array[index];
             }
+
             set
             {
-                if (index >= Length || index<0)
+                if (!(index >= Length || index <= 0))
                 {
                     _array[index] = value;
                 }
-                throw new ArgumentOutOfRangeException("Index out of range");
+                else
+                {
+                    throw new IndexOutOfRangeException(" Index out of range");
+                }
             }
         }
 
-        public ArrayList()
+        public void AddLast(int value)
         {
-            Length = 0;
-
-            _array = new int[10];
-        }
-
-        public ArrayList(int element)
-        {
-            Length = 1;
-
-            _array = new int[10];
-            _array[0] = element;
-        }
-
-        public ArrayList(int[] initArray)
-        {
-            Length = 0;
-            _array = new int[initArray.Length];
-
-            for (int i = 0; i < initArray.Length; i++)
-            {
-                Add(initArray[i]);
-            }
-        }
-
-        public void Add(int value)
-        {
-            if (Length == _array.Length)
-            {
-                Resize(Length);
-            }
+            Resize(Length);
 
             _array[Length++] = value;
         }
-
-        public void AddFront(int value)
+        public void AddLast(ArrayList list)
         {
-            if (Length == _array.Length)
+            int oldLength = Length;
+            Length += list.Length;
+
+            Resize(oldLength);
+
+            for (int i = 0; i < list.Length; ++i)
             {
-                Resize(Length);
+                _array[oldLength + i] = list[i];
             }
 
-            //SwapInOf(0, 1);
-            for (int i = Length; i <= 0; --i)
-            {
-                _array[i + 1] = _array[i];
-            }
+        }
+
+        public void AddFirst(int value)
+        {
+            Resize(Length);
+
+            Length++;
+            ShiftRight(0, 1);
 
             _array[0] = value;
-            Length++;
+        }
+        public void AddFirst(ArrayList list)
+        {
+            int oldLength = Length;
+            Length += list.Length;
+            Resize(oldLength);
+            ShiftRight(list.Length - 1, list.Length);
+
+            for (int i = 0; i < list.Length; ++i)
+            {
+                _array[i] = list[i];
+            }
         }
 
-        public void AddByIndex(int value, int index)
+
+        public void AddByIndex(int index, int value)
         {
-            if (Length >= _array.Length)
+            if (index >= 0 && index <= Length)
             {
                 Resize(Length);
-            }
 
-            //SwapInOf(index, index + 1);
-            for (int i = Length + 1; i >= index; i--)
-            {
-                _array[i + 1] = _array[i];
-            }
-
-            _array[index] = value;
-            Length++;
-        }
-
-        public void RemoveBack()
-        {
-            if (Length <= _array.Length / 2)
-            {
-                Resize(Length);
-            }
-
-            Length--;
-        }
-
-        public void RemoveFront()
-        {
-            if (Length <= _array.Length / 2)
-            {
-                Resize(Length);
-            }
-
-            //SwapInOf(0, 1);
-            for (int i = 0; i < Length; i++)
-            {
-                _array[i] = _array[i + 1];
-            }
-
-            Length--;
-        }
-
-        public void RemoveByIndex(int index)
-        {
-            if (Length <= _array.Length / 2)
-            {
-                Resize(Length);
-            }
-            //SwapInOf(index, index + 1);
-            for (int i = index; i < Length; i++)
-            {
-                _array[i] = _array[i + 1];
-            }
-
-            Length--;
-        }
-
-        public void RemoveBack(int nElements)
-        {
-            Length -= Length >= nElements ? nElements : Length;
-
-            if (Length - nElements <= _array.Length / 2)
-            {
-                Resize(Length);
-            }
-        }
-
-        public void RemoveFront(int nElements)
-        {
-            if (nElements > 0)
-            {
-                Length -= Length >= nElements ? nElements : Length;
-
-                if (Length != 0 && Length - nElements <= _array.Length / 2)
-                {
-                    Resize(Length);
-                }
-                //SwapInOf(0, nElements);
-                for (int i = 0; i < Length; i++)
-                {
-                    _array[i] = _array[i + nElements];
-                }
-
-            }
-        }
-
-        public void RemoveByIndex(int nElements, int index)
-        {
-            if (Length / 2 == _array.Length)
-            {
-                Resize(Length);
-            }
-            if (Length - index >= nElements)
-            {
-                Length -= nElements;
-
-                //SwapInOf(index, index + nElements);
-                for (int i = index; i < Length; i++)
-                {
-                    _array[i] = _array[i + nElements];
-                }
-            }
-            else
-            {
-                Length = index;
-            }
-        }
-
-        public void ReternLength()
-        {
-        }
-
-        //public int GetValueByIndex(int index)
-        //{
-        //    if (index < Length && index >= 0)
-        //    {
-        //        return _array[index];
-        //    }
-
-        //    throw new IndexOutOfRangeException("Index Out Of Randge ");
-        //}
-
-        //public int GetIndexByValue(int value)
-        //{
-
-        //    for (int i = 0; i < Length; i++)
-        //    {
-        //        if (value == _array[i])
-        //        {
-        //            return i;
-        //        }
-        //    }
-
-        //    return -1;
-
-        //}
-
-        public void ChangeByIndex(int value, int index)
-        {
-            if (index < Length && index >= 0)
-            {
+                Length++;
+                ShiftRight(index, 1);
 
                 _array[index] = value;
             }
@@ -230,19 +123,148 @@ namespace MatviiList
             }
         }
 
+        public void AddByIndex(int index, ArrayList list)
+        {
+            if (index < Length && index >= 0)
+            {
+                int oldLength = Length;
+                Length += list.Length;
+                Resize(oldLength);
+                ShiftRight(index + list.Length - 1, list.Length);
+
+                for (int i = 0; i < list.Length; ++i)
+                {
+                    _array[i + index] = list[i];
+                }
+            }
+            else
+            {
+                throw new IndexOutOfRangeException("Index Out Of Randge ");
+            }
+        }
+
+        public void RemoveLast()
+        {
+            if (!(Length == 0))
+            {
+                Length--;
+            }
+
+            Resize(Length);
+        }
+
+        public void RemoveFirst()
+        {
+            if (!(Length == 0))
+            {
+                Length--;
+                ShiftLeft(0, 1);
+            }
+
+            Resize(Length);
+        }
+
+        public void RemoveByIndex(int index)
+        {
+            if (index >= 0 && index < Length)
+            {
+                if (!(Length == 0))
+                {
+                    Length--;
+                    ShiftLeft(index, 1);
+                }
+
+                Resize(Length);
+            }
+            else
+            {
+                throw new IndexOutOfRangeException("Index Out Of Randge ");
+            }
+        }
+
+        public void RemoveLast(int nElelements)
+        {
+            if (Length >= nElelements)
+            {
+                if (nElelements >= 0)
+                {
+
+                    Length -= nElelements;
+                }
+            }
+            else
+            {
+                Length = 0;
+            }
+
+            Resize(Length);
+
+        }
+
+        public void RemoveFirst(int nElelements)
+        {
+            if (!(Length <= nElelements))
+            {
+                if (nElelements >= 0)
+                {
+                    Length -= nElelements;
+                    ShiftLeft(0, nElelements);
+                }
+            }
+            else
+            {
+                Length = 0;
+            }
+
+            Resize(Length);
+        }
+
+        public void RemoveByIndex(int index, int nElelements)
+        {
+            if (Length - index >= nElelements)
+            {
+                Length -= nElelements;
+                ShiftLeft(index, nElelements);
+            }
+            else
+            {
+                Length = index;
+            }
+
+            Resize(Length);
+        }
+
+        public int GetIndexByValue(int value)
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                if (value == _array[i])
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
         public void Revers()
         {
+            int temp;
             int swapIndex;
             for (int i = 0; i < Length / 2; i++)
             {
                 swapIndex = Length - i - 1;
-                Swap(ref _array[i], ref _array[swapIndex]);
+                temp = _array[i];
+
+                _array[i] = _array[swapIndex];
+                _array[swapIndex] = temp;
             }
         }
 
-        public int GetMaxIndex()
+        public int FindMaxIndex()
         {
             int maxIndexOfElement = 0;
+
             for (int i = 1; i < Length; i++)
             {
                 if (_array[maxIndexOfElement] < _array[i])
@@ -254,9 +276,10 @@ namespace MatviiList
             return maxIndexOfElement;
         }
 
-        public int GetMinIndex()
+        public int FindMinIndex()
         {
             int minIndexOfElement = 0;
+
             for (int i = 1; i < Length; i++)
             {
                 if (_array[minIndexOfElement] > _array[i])
@@ -268,17 +291,33 @@ namespace MatviiList
             return minIndexOfElement;
         }
 
-        public int Max()
+        public int FindMaxElement()
         {
-            return _array[GetMaxIndex()];
+            return _array[FindMaxIndex()];
         }
 
-        public int Min()
+        public int FindMinElement()
         {
-            return _array[GetMinIndex()];
+            return _array[FindMinIndex()];
         }
 
-        public void SortIncrease(int array)
+        public void RemoveByValue(int value)
+        {
+            RemoveByIndex(GetIndexByValue(value));
+        }
+
+        public void RemoveAllByValue(int value)
+        {
+            int indexOfElements = GetIndexByValue(value);
+            while (indexOfElements != -1)
+            {
+                RemoveByIndex(indexOfElements);
+                indexOfElements = GetIndexByValue(value);
+            }
+        }
+
+
+        public void SortIncrease()
         {
             for (int i = 0; i < Length - 1; i++)
             {
@@ -292,7 +331,7 @@ namespace MatviiList
             }
         }
 
-        public void SortDecrease(int array)
+        public void SortDecrease()
         {
             for (int i = 0; i < Length - 1; i++)
             {
@@ -306,23 +345,41 @@ namespace MatviiList
             }
         }
 
-        public void RemoveByValue(int value)
+        public void ZAdd(ArrayList list)
         {
-            RemoveByIndex(GetIndexByValue(value));
+            int oldLenght = Length;
+            Length += list.Length;
+            Resize(oldLenght);
+
+            for (int i = 0; i < list.Length; ++i)
+            {
+                _array[oldLenght + i] = list[i];
+            }
         }
 
-        public int RemoveAllByValue(int value)
+        public void ZAddFirst(ArrayList list)
         {
-            int count = 0;
-            int index = GetIndexByValue(value);
+            int oldLength = Length;
+            Length += list.Length;
+            Resize(oldLength);
+            ShiftRight(list.Length - 1, list.Length);
 
-            while (index != -1)
+            for (int i = 0; i < list.Length; ++i)
             {
-                RemoveByIndex(index);
-                count++;
+                _array[i] = list[i];
             }
+        }
+        public void ZAddByIndex(int index, ArrayList list)
+        {
+            int oldLength = Length;
+            Length += list.Length;
+            Resize(oldLength);
+            ShiftRight(index, list.Length);
 
-            return count;
+            for (int i = 0; i < list.Length; ++i)
+            {
+                _array[i + index] = list[i];
+            }
         }
 
         public override string ToString()
@@ -337,62 +394,35 @@ namespace MatviiList
 
         public override bool Equals(object obj)
         {
-            if (obj is ArrayList)
+            ArrayList List = (ArrayList)obj;
+            if (this.Length != List.Length)
             {
-                ArrayList List = (ArrayList)obj;
-                if (this.Length != List.Length)
+                return false;
+            }
+
+            for (int i = 0; i < Length; i++)
+            {
+                if (this._array[i] != List._array[i])
                 {
                     return false;
                 }
-                for (int i = 0; i < Length; i++)
-                {
-                    if (this._array[i] != List._array[i])
-                    {
-                        return false;
-                    }
-                }
-                return true;
             }
-            else
-            {
-                throw new ArgumentOutOfRangeException("Out of range");
-            }
-        }
 
-        private void Resize(int newLength)
-        {
-            if (newLength >= _array.Length)
-            {
-                newLength = (int)(newLength * 1.33d + 1);
-                newArray(newLength);
-            }
-            else if ((newLength <= _array.Length / 2) && (newLength > 10))
-            {
-                newLength = (int)(newLength * 1.33d + 1);
-                newArray(newLength);
-            }
-            else if (newLength < 0)
-            {
-                throw new IndexOutOfRangeException();
-            }
+            return true;
         }
-
-        private void newArray(int newLength)
+        private void Resize(int oldLength)
         {
-            if (newLength >= 0)
+            if ((Length >= _array.Length) || (Length <= _array.Length / 2))
             {
+                int newLength = (int)(Length * 1.33d + 1);
                 int[] tempArray = new int[newLength];
 
-                for (int i = 0; i < Length; ++i)
+                for (int i = 0; i < oldLength; i++)
                 {
                     tempArray[i] = _array[i];
                 }
 
                 _array = tempArray;
-            }
-            else
-            {
-                throw new IndexOutOfRangeException();
             }
         }
 
@@ -403,17 +433,30 @@ namespace MatviiList
             indexJ = c;
         }
 
-        //private void SwapInOf(int firstIndex, int lastIndex)
-        //{
-        //    for (int i = firstIndex; i < Length; i++)
-        //    {
-        //        _array[i] = _array[lastIndex];
+        //shift to the right ------->
+        private void ShiftRight(int index, int nElements)
+        {
 
-        //        lastIndex++;
-        //    }
-        //}
+            for (int i = Length - 1; i > index; i--)
+            {
+                _array[i] = _array[i - nElements];
+            }
+        }
+
+        // left shift    <-------
+        private void ShiftLeft(int index, int nElements)
+        {
+
+            for (int i = index; i < Length; i++)
+            {
+                _array[i] = _array[i + nElements];
+            }
+
+        }
+
 
     }
-
-
 }
+
+
+
