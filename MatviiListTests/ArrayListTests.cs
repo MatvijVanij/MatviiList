@@ -104,6 +104,22 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
+        [TestCase(-655, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3 })]
+        [TestCase(2, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3 })]
+        [TestCase(-1, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3 })]
+        public void AddByIndex_WhenindexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int[] listarray, int[] expectedArr)
+        {
+            Assert.Throws<IndexOutOfRangeException>(() =>
+            {
+                ArrayList list = new ArrayList(listarray);
+                ArrayList actual = new ArrayList(expectedArr);
+
+                actual.AddByIndex(index, list);
+
+            });
+        }
+
+
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2 })]
         [TestCase(new int[] { -1, 2, 0, 4, 4 }, new int[] { -1, 2, 0, 4 })]
         [TestCase(new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { 1, 2, 3, 5, 7 })]
@@ -196,9 +212,9 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
-        [TestCase(5,1, new int[] { 11, 22, 33 })]
-        [TestCase(0,7, new int[] { 11, 22, 33 })]
-        [TestCase(-14,1, new int[] { 11, 22, 33 })]
+        [TestCase(5, 1, new int[] { 11, 22, 33 })]
+        [TestCase(0, 7, new int[] { 11, 22, 33 })]
+        [TestCase(-14, 1, new int[] { 11, 22, 33 })]
         [TestCase(0, 4, new int[] { 11, 22, 33 })]
         public void RemoveByIndex_WhenindexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int nElements, int[] expectedArr)
         {
@@ -282,6 +298,21 @@ namespace MatviiListTests
 
             actual.ChangeByIndex(index, value);
             Assert.AreEqual(actual, expected);
+        }
+
+        [TestCase(5, 111, new int[] { 11, 22, 33 })]
+        [TestCase(3, 111, new int[] { 11, 22, 33 })]
+        [TestCase(-14, 111, new int[] { 11, 22, 33 })]
+        [TestCase(-1, 111, new int[] { 11, 22, 33 })]
+        public void ChangeByIndex_WhenindexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int value, int[] expectedArr)
+        {
+            Assert.Throws<IndexOutOfRangeException>(() =>
+            {
+                ArrayList actual = new ArrayList(expectedArr);
+
+                actual.ChangeByIndex(index, value);
+
+            });
         }
 
         [TestCase(new int[] { }, new int[] { })]

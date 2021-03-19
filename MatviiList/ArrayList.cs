@@ -267,7 +267,7 @@ namespace MatviiList
             }
             else
             {
-                throw new ArgumentOutOfRangeException();
+                throw new IndexOutOfRangeException();
             }
         }
 
