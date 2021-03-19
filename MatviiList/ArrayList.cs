@@ -6,7 +6,6 @@ namespace MatviiList
 {
     public class ArrayList
     {
-
         public int Length { get; private set; }
 
         private int[] _array;
@@ -39,7 +38,7 @@ namespace MatviiList
             }
             else
             {
-                throw new ArgumentException("Ti she duurak? kuda null pihaech?");
+                throw new ArgumentException("No null in on");
             }
         }
 
@@ -69,6 +68,7 @@ namespace MatviiList
 
             _array[Length++] = value;
         }
+
         public void AddLast(ArrayList list)
         {
             int oldLength = Length;
@@ -85,13 +85,16 @@ namespace MatviiList
 
         public void AddFirst(int value)
         {
+            int index = 0;
+            int nElemen = 1;
             Resize(Length);
 
             Length++;
-            ShiftRight(0, 1);
+            ShiftRight(index, nElemen);
 
-            _array[0] = value;
+            _array[index] = value;
         }
+
         public void AddFirst(ArrayList list)
         {
             int oldLength = Length;
@@ -105,15 +108,15 @@ namespace MatviiList
             }
         }
 
-
         public void AddByIndex(int index, int value)
         {
             if (index >= 0 && index <= Length)
             {
+                int nElement = 1;
                 Resize(Length);
 
                 Length++;
-                ShiftRight(index, 1);
+                ShiftRight(index, nElement);
 
                 _array[index] = value;
             }
@@ -125,7 +128,7 @@ namespace MatviiList
 
         public void AddByIndex(int index, ArrayList list)
         {
-            if (index < Length && index >= 0)
+            if (index <= Length && index >= 0)
             {
                 int oldLength = Length;
                 Length += list.Length;
@@ -145,7 +148,7 @@ namespace MatviiList
 
         public void RemoveLast()
         {
-            if (!(Length == 0))
+            if (Length != 0)
             {
                 Length--;
             }
@@ -155,23 +158,25 @@ namespace MatviiList
 
         public void RemoveFirst()
         {
-            if (!(Length == 0))
+            if (Length != 0)
             {
+                int index = 0;
+                int nElement = 1;
                 Length--;
-                ShiftLeft(0, 1);
+                ShiftLeft(index, nElement);
             }
-
             Resize(Length);
         }
 
         public void RemoveByIndex(int index)
         {
+            int nElement = 1;
             if (index >= 0 && index < Length)
             {
-                if (!(Length == 0))
+                if (Length != 0)
                 {
                     Length--;
-                    ShiftLeft(index, 1);
+                    ShiftLeft(index, nElement);
                 }
 
                 Resize(Length);
@@ -221,17 +226,24 @@ namespace MatviiList
 
         public void RemoveByIndex(int index, int nElelements)
         {
-            if (Length - index >= nElelements)
+            if (index >= 0 && index < Length - nElelements+1)
             {
-                Length -= nElelements;
-                ShiftLeft(index, nElelements);
+                if (Length - index >= nElelements)
+                {
+                    Length -= nElelements;
+                    ShiftLeft(index, nElelements);
+                }
+                else
+                {
+                    Length = index;
+                }
+
+                Resize(Length);
             }
             else
             {
-                Length = index;
+                throw new IndexOutOfRangeException();
             }
-
-            Resize(Length);
         }
 
         public int GetIndexByValue(int value)
@@ -245,6 +257,18 @@ namespace MatviiList
             }
 
             return -1;
+        }
+
+        public void ChangeByIndex(int index, int value)
+        {
+            if (index <= Length && index >= 0)
+            {
+                _array[index] = value;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
         }
 
         public void Revers()
@@ -316,7 +340,6 @@ namespace MatviiList
             }
         }
 
-
         public void SortIncrease()
         {
             for (int i = 0; i < Length - 1; i++)
@@ -342,43 +365,6 @@ namespace MatviiList
                         Swap(ref _array[i], ref _array[j]);
                     }
                 }
-            }
-        }
-
-        public void ZAdd(ArrayList list)
-        {
-            int oldLenght = Length;
-            Length += list.Length;
-            Resize(oldLenght);
-
-            for (int i = 0; i < list.Length; ++i)
-            {
-                _array[oldLenght + i] = list[i];
-            }
-        }
-
-        public void ZAddFirst(ArrayList list)
-        {
-            int oldLength = Length;
-            Length += list.Length;
-            Resize(oldLength);
-            ShiftRight(list.Length - 1, list.Length);
-
-            for (int i = 0; i < list.Length; ++i)
-            {
-                _array[i] = list[i];
-            }
-        }
-        public void ZAddByIndex(int index, ArrayList list)
-        {
-            int oldLength = Length;
-            Length += list.Length;
-            Resize(oldLength);
-            ShiftRight(index, list.Length);
-
-            for (int i = 0; i < list.Length; ++i)
-            {
-                _array[i + index] = list[i];
             }
         }
 
@@ -410,6 +396,7 @@ namespace MatviiList
 
             return true;
         }
+
         private void Resize(int oldLength)
         {
             if ((Length >= _array.Length) || (Length <= _array.Length / 2))
@@ -433,7 +420,6 @@ namespace MatviiList
             indexJ = c;
         }
 
-        //shift to the right ------->
         private void ShiftRight(int index, int nElements)
         {
 
@@ -443,7 +429,6 @@ namespace MatviiList
             }
         }
 
-        // left shift    <-------
         private void ShiftLeft(int index, int nElements)
         {
 
