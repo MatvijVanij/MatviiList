@@ -3,13 +3,12 @@ using NUnit.Framework;
 using System;
 namespace MatviiListTests
 {
-    public class Tests
+    public class ArrayListTests
     {
         [TestCase(99, new int[] { }, new int[] { 99 })]
         [TestCase(-11, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, -11 })]
         [TestCase(33, new int[] { -1, 2, 0, 4, 4 }, new int[] { -1, 2, 0, 4, 4, 33 })]
         [TestCase(00, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9, 0, 67, 9, 87, -1, 00 })]
-
         public void AddLast_WhenGetValue_ShouldAddToLast(int value, int[] actualArr, int[] expectedArr)
         {
             ArrayList actual = new ArrayList(actualArr);
@@ -18,6 +17,7 @@ namespace MatviiListTests
             actual.AddLast(value);
             Assert.AreEqual(actual, expected);
         }
+
         [TestCase(new int[] { 11, 22, 33 }, new int[] { 1 }, new int[] { 1, 11, 22, 33 })]
         [TestCase(new int[] { 99, 77 }, new int[] { 4, 6, 3 }, new int[] { 4, 6, 3, 99, 77 })]
         [TestCase(new int[] { 44 }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 44 })]
@@ -33,12 +33,10 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
-
         [TestCase(99, new int[] { }, new int[] { 99 })]
         [TestCase(-11, new int[] { 1, 2, 3 }, new int[] { -11, 1, 2, 3 })]
         [TestCase(33, new int[] { -1, 2, 0, 4, 4 }, new int[] { 33, -1, 2, 0, 4, 4 })]
         [TestCase(00, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { 00, -3, 5, 9, 0, 67, 9, 87, -1 })]
-
         public void AddFirst_WhenGetValue_ShouldAddToFirst(int value, int[] actualArr, int[] expectedArr)
         {
             ArrayList actual = new ArrayList(actualArr);
@@ -76,16 +74,16 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
-        [TestCase(5, new int[] { 11, 22, 33 })]
-        [TestCase(14, new int[] { 11, 22, 33 })]
-        [TestCase(-323, new int[] { 11, 22, 33 })]
-        public void AddByIndex_WhenindexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int[] expectedArr)
+        [TestCase(5, 11, new int[] { 11, 22, 33 })]
+        [TestCase(14, 11, new int[] { 11, 22, 33 })]
+        [TestCase(-323, 11, new int[] { 11, 22, 33 })]
+        public void AddByIndex_WhenIndexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int value, int[] expectedArr)
         {
             Assert.Throws<IndexOutOfRangeException>(() =>
             {
                 ArrayList actual = new ArrayList(expectedArr);
 
-                actual.AddByIndex(index, -8);
+                actual.AddByIndex(index, value);
 
             });
         }
@@ -93,7 +91,6 @@ namespace MatviiListTests
         [TestCase(0, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 11, 22, 33, 1, 2, 3, 4 })]
         [TestCase(2, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 11, 22, 33, 3, 4 })]
         [TestCase(4, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4, 11, 22, 33 })]
-
         public void AddByIndex_WhenGetList_ShouldAddByIndex(int index, int[] newlist, int[] actualArr, int[] expectedArr)
         {
             ArrayList list = new ArrayList(newlist);
@@ -105,9 +102,9 @@ namespace MatviiListTests
         }
 
         [TestCase(-655, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3 })]
-        [TestCase(2, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3 })]
+        [TestCase(5, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3 })]
         [TestCase(-1, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3 })]
-        public void AddByIndex_WhenindexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int[] listarray, int[] expectedArr)
+        public void AddByIndex_WhenIndexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int[] listarray, int[] expectedArr)
         {
             Assert.Throws<IndexOutOfRangeException>(() =>
             {
@@ -115,10 +112,8 @@ namespace MatviiListTests
                 ArrayList actual = new ArrayList(expectedArr);
 
                 actual.AddByIndex(index, list);
-
             });
         }
-
 
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2 })]
         [TestCase(new int[] { -1, 2, 0, 4, 4 }, new int[] { -1, 2, 0, 4 })]
@@ -169,7 +164,6 @@ namespace MatviiListTests
                 ArrayList actual = new ArrayList(expectedArr);
 
                 actual.RemoveByIndex(index);
-
             });
         }
 
@@ -223,7 +217,6 @@ namespace MatviiListTests
                 ArrayList actual = new ArrayList(expectedArr);
 
                 actual.RemoveByIndex(index, nElements);
-
             });
         }
 
@@ -251,6 +244,17 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
+        [TestCase(new int[] { })]
+        public void FindMaxElement_WhenGetNullList_ShoudInvalidOperationException(int[] expectedArr)
+        {
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                ArrayList actual = new ArrayList(expectedArr);
+
+                actual.FindMaxElement();
+            });
+        }
+
         [TestCase(new int[] { 1, 2, 3, 6, 6 }, 3)]
         [TestCase(new int[] { 76, 1, 2, 3, 4, -3, -5 }, 0)]
         [TestCase(new int[] { 1, 2, 3, 5, 7, 8 }, 5)]
@@ -261,6 +265,17 @@ namespace MatviiListTests
 
             int actual = Array.FindMaxIndex();
             Assert.AreEqual(actual, expected);
+        }
+
+        [TestCase(new int[] { })]
+        public void FindMaxIndex_WhenGetNullList_ShoudInvalidOperationException(int[] expectedArr)
+        {
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                ArrayList actual = new ArrayList(expectedArr);
+
+                actual.FindMaxIndex();
+            });
         }
 
         [TestCase(new int[] { 1, 2, 3, 6, 6 }, 1)]
@@ -275,6 +290,17 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
+        [TestCase(new int[] { })]
+        public void FindMinElement_WhenGetNullList_ShoudInvalidOperationException(int[] expectedArr)
+        {
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                ArrayList actual = new ArrayList(expectedArr);
+
+                actual.FindMinElement();
+            });
+        }
+
         [TestCase(new int[] { 1, 2, 3, 6, 6 }, 0)]
         [TestCase(new int[] { 76, 1, 2, 3, 4, -3, -5 }, 6)]
         [TestCase(new int[] { 1, 2, 3, -7, 5, 7, 8 }, 3)]
@@ -285,6 +311,17 @@ namespace MatviiListTests
 
             int actual = Array.FindMinIndex();
             Assert.AreEqual(actual, expected);
+        }
+
+        [TestCase(new int[] { })]
+        public void FindMinIndex_WhenGetNullList_ShoudInvalidOperationException(int[] expectedArr)
+        {
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                ArrayList actual = new ArrayList(expectedArr);
+
+                actual.FindMinIndex();
+            });
         }
 
         [TestCase(1, 100, new int[] { 2, 3, 6 }, new int[] { 2, 100, 6 })]
@@ -304,14 +341,13 @@ namespace MatviiListTests
         [TestCase(3, 111, new int[] { 11, 22, 33 })]
         [TestCase(-14, 111, new int[] { 11, 22, 33 })]
         [TestCase(-1, 111, new int[] { 11, 22, 33 })]
-        public void ChangeByIndex_WhenindexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int value, int[] expectedArr)
+        public void ChangeByIndex_WhenIndexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int value, int[] expectedArr)
         {
             Assert.Throws<IndexOutOfRangeException>(() =>
             {
                 ArrayList actual = new ArrayList(expectedArr);
 
                 actual.ChangeByIndex(index, value);
-
             });
         }
 
@@ -326,7 +362,6 @@ namespace MatviiListTests
 
             actual.Revers();
             Assert.AreEqual(actual, expected);
-
         }
 
         [TestCase(new int[] { }, new int[] { })]
@@ -353,7 +388,6 @@ namespace MatviiListTests
 
             actual.SortIncrease();
             Assert.AreEqual(actual, expected);
-
         }
 
         [TestCase(1, new int[] { 1, 2, 3, 6 }, new int[] { 2, 3, 6 })]
@@ -382,7 +416,5 @@ namespace MatviiListTests
             actual.RemoveAllByValue(value);
             Assert.AreEqual(actual, expected);
         }
-
-
     }
 }

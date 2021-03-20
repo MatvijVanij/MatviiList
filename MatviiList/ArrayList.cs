@@ -46,12 +46,18 @@ namespace MatviiList
         {
             get
             {
-                return _array[index];
+                if (index >= 0 && index < Length)
+                {
+                    return _array[index];
+                }
+                else
+                {
+                    throw new IndexOutOfRangeException(" Index out of range");
+                }
             }
-
             set
             {
-                if (!(index >= Length || index <= 0))
+                if (index >= 0 && index <= Length)
                 {
                     _array[index] = value;
                 }
@@ -226,7 +232,7 @@ namespace MatviiList
 
         public void RemoveByIndex(int index, int nElelements)
         {
-            if (index >= 0 && index < Length - nElelements+1)
+            if (index >= 0 && index < Length - nElelements + 1)
             {
                 if (Length - index >= nElelements)
                 {
@@ -287,32 +293,45 @@ namespace MatviiList
 
         public int FindMaxIndex()
         {
-            int maxIndexOfElement = 0;
-
-            for (int i = 1; i < Length; i++)
+            if (Length != 0)
             {
-                if (_array[maxIndexOfElement] < _array[i])
+                int maxIndexOfElement = 0;
+
+                for (int i = 1; i < Length; i++)
                 {
-                    maxIndexOfElement = i;
+                    if (_array[maxIndexOfElement] < _array[i])
+                    {
+                        maxIndexOfElement = i;
+                    }
                 }
+                return maxIndexOfElement;
+            }
+            else
+            {
+                throw new InvalidOperationException("List is null");
             }
 
-            return maxIndexOfElement;
         }
 
         public int FindMinIndex()
         {
-            int minIndexOfElement = 0;
-
-            for (int i = 1; i < Length; i++)
+            if (Length != 0)
             {
-                if (_array[minIndexOfElement] > _array[i])
-                {
-                    minIndexOfElement = i;
-                }
-            }
+                int minIndexOfElement = 0;
 
-            return minIndexOfElement;
+                for (int i = 1; i < Length; i++)
+                {
+                    if (_array[minIndexOfElement] > _array[i])
+                    {
+                        minIndexOfElement = i;
+                    }
+                }
+                return minIndexOfElement;
+            }
+            else
+            {
+                throw new InvalidOperationException("List is null");
+            }
         }
 
         public int FindMaxElement()
