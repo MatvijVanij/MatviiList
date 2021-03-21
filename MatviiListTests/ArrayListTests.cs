@@ -5,6 +5,18 @@ namespace MatviiListTests
 {
     public class ArrayListTests
     {
+        [TestCase(-1, new int[] { 1, 2, 3 }, 99)]
+        [TestCase(4, new int[] { 1, 3, 4 }, 99)]
+        public void Indecsator_WhenIndexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int[] actualAr, int value)
+        {
+            Assert.Throws<IndexOutOfRangeException>(() =>
+            {
+                ArrayList actual = new ArrayLis(actualAr);
+
+                _array[index] = value;
+            });
+        }
+
         [TestCase(99, new int[] { }, new int[] { 99 })]
         [TestCase(-11, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, -11 })]
         [TestCase(33, new int[] { -1, 2, 0, 4, 4 }, new int[] { -1, 2, 0, 4, 4, 33 })]
@@ -84,7 +96,6 @@ namespace MatviiListTests
                 ArrayList actual = new ArrayList(expectedArr);
 
                 actual.AddByIndex(index, value);
-
             });
         }
 

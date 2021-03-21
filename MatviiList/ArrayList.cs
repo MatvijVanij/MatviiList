@@ -26,7 +26,7 @@ namespace MatviiList
 
         public ArrayList(int[] initArray)
         {
-            if (!(initArray == null))
+            if (initArray != null)
             {
                 Length = 0;
                 _array = new int[initArray.Length];
