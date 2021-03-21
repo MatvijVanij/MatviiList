@@ -11,9 +11,9 @@ namespace MatviiListTests
         {
             Assert.Throws<IndexOutOfRangeException>(() =>
             {
-                ArrayList actual = new ArrayLis(actualAr);
+                ArrayList actual = new ArrayList(actualAr);
 
-                _array[index] = value;
+                actual[index] = value;
             });
         }
 
