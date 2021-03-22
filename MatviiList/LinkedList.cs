@@ -4,15 +4,19 @@ using System.Text;
 
 namespace MatviiList
 {
-    class LinkedList
+    public class LinkedList
     {
+        private Node _root;
+
+        private Node _tail;
+
         public int Length { get; private set; }
 
         public int this[int index]
         {
             get
             {
-                if (index < 0 && index > Length)
+                if (index < 0 && index >= Length)
                 {
                     return GetNodeByIndex(index).Value;
                 }
@@ -23,7 +27,7 @@ namespace MatviiList
             }
             set
             {
-                if (index < 0 && index > Length)
+                if (index < 0 && index >= Length)
                 {
                     GetNodeByIndex(index).Value = value;
                 }
@@ -33,10 +37,6 @@ namespace MatviiList
                 }
             }
         }
-
-        private Node _root;
-
-        private Node _tail;
 
         public LinkedList()
         {
@@ -54,13 +54,15 @@ namespace MatviiList
 
         public LinkedList(int[] values)
         {
-            if (values is null)
+            if (!(values is null))
             {
+                Length = values.Length;
+
                 if (values.Length != 0)
                 {
-                    Length = values.Length;
+
                     _root = new Node(values[0]);
-                    _root = _tail;
+                    _tail = _root;
 
                     for (int i = 1; i < values.Length; i++)
                     {
@@ -74,7 +76,11 @@ namespace MatviiList
                     _tail = null;
                 }
             }
-            throw new NullReferenceException("no value in list");
+            else
+            {
+                throw new NullReferenceException();
+            }
+
         }
 
         public void AddLast(int value)
@@ -87,18 +93,51 @@ namespace MatviiList
         public void AddFirst(int value)
         {
             Length++;
-            _root.Next = new Node(value);
-            _root = _root.Next;
+            Node node = new Node(value);
+            node.Next = _root;
+
         }
 
-        private Node GetNodeByIndex(int index)
+        public void AddByIndex(int index, int value)
         {
-            Node current = _root;
-            for (int i = 1; i <= index; i++)
+            Length++;
+            Node current = GetNodeByIndex(index);
+            Node tmp = current.Next;
+            current = new Node(value);
+            current.Next.Next = tmp;
+
+        }
+
+        public void RemoveLast()
+        {
+        }
+
+        public void RemoveFirst()
+        {
+            if (Length != 0)
             {
-                current = current.Next;
+                _root = _root.Next;
+                Length--;
             }
-            return current;
+        }
+
+        public void RemoveByIndex(int index)
+        {
+            Node current = GetNodeByIndex(index);
+            current.Next = current.Next.Next;
+            Length--;
+        }
+
+        public void RemoveLast(int nElements)
+        {
+        }
+
+        public void RemoveFirst(int nElements)
+        {
+        }
+
+        public void RemoveByIndex(int index, int nElements)
+        {
         }
 
         public override string ToString()
@@ -130,22 +169,40 @@ namespace MatviiList
             {
                 return false;
             }
-            Node currentThis =this._root;
+            Node currentThis = this._root;
             Node currentList = list._root;
 
-            do
+            if (currentList.Next == null && currentThis.Next == null && currentThis.Value == currentList.Value)
             {
-                if (currentThis.Value != currentList.Value)
-                {
-                    return true;
-                }
-                currentList = currentList.Next;
-                currentThis = currentThis.Next;
-
+                return true;
             }
-            while (!(currentThis.Next is null));
+            else
+            {
+                do
+                {
+                    if (currentThis.Value != currentList.Value)
+                    {
+                        return false;
+                    }
+                    currentList = currentList.Next;
+                    currentThis = currentThis.Next;
 
-            return base.Equals(obj);
+                }
+                while (!(currentThis.Next is null));
+            }
+            return true;
         }
+
+
+        private Node GetNodeByIndex(int index)
+        {
+            Node current = _root;
+            for (int i = 1; i <= index; i++)
+            {
+                current = current.Next;
+            }
+            return current;
+        }
+
     }
 }
