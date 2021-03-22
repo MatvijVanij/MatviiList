@@ -92,9 +92,10 @@ namespace MatviiList
 
         public void AddFirst(int value)
         {
-            Length++;
             Node node = new Node(value);
-            node.Next = _root;
+            _root.Value = value;
+            _root.Next = node;
+            Length++;
 
         }
 
@@ -104,7 +105,7 @@ namespace MatviiList
             Node current = GetNodeByIndex(index);
             Node tmp = current.Next;
             current = new Node(value);
-            current.Next.Next = tmp;
+            current.Next = tmp;
 
         }
 
