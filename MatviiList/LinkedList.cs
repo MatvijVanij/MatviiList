@@ -125,6 +125,26 @@ namespace MatviiList
 
         public override bool Equals(object obj)
         {
+            LinkedList list = (LinkedList)obj;
+            if (this.Length != list.Length)
+            {
+                return false;
+            }
+            Node currentThis =this._root;
+            Node currentList = list._root;
+
+            do
+            {
+                if (currentThis.Value != currentList.Value)
+                {
+                    return true;
+                }
+                currentList = currentList.Next;
+                currentThis = currentThis.Next;
+
+            }
+            while (!(currentThis.Next is null));
+
             return base.Equals(obj);
         }
     }
