@@ -7,13 +7,14 @@ namespace MatviiList
     class LinkedList
     {
         public int Length { get; private set; }
+
         public int this[int index]
         {
             get
             {
                 if (index < 0 && index > Length)
                 {
-                   return GetNodeByIndex(index).Value;
+                    return GetNodeByIndex(index).Value;
                 }
                 else
                 {
@@ -32,14 +33,18 @@ namespace MatviiList
                 }
             }
         }
+
         private Node _root;
+
         private Node _tail;
+
         public LinkedList()
         {
             Length = 0;
             _root = null;
             _tail = null;
         }
+
         public LinkedList(int value)
         {
             Length = 1;
@@ -72,6 +77,20 @@ namespace MatviiList
             throw new NullReferenceException("no value in list");
         }
 
+        public void AddLast(int value)
+        {
+            Length++;
+            _tail.Next = new Node(value);
+            _tail = _tail.Next;
+        }
+
+        public void AddFirst(int value)
+        {
+            Length++;
+            _root.Next = new Node(value);
+            _root = _root.Next;
+        }
+
         private Node GetNodeByIndex(int index)
         {
             Node current = _root;
@@ -82,17 +101,31 @@ namespace MatviiList
             return current;
         }
 
-        public void AddLast(int value)
+        public override string ToString()
         {
-            Length++;
-            _tail.Next = new Node(value);
-            _tail = _tail.Next;
+            if (Length != 0)
+            {
+
+
+                Node current = _root;
+                string str = current.Value + " ";
+
+                while (!(current.Next is null))
+                {
+                    current = current.Next;
+                    str += current.Value + " ";
+                }
+                return str;
+            }
+            else
+            {
+                return String.Empty;
+            }
         }
-        public void AddFirst(int value)
+
+        public override bool Equals(object obj)
         {
-            Length++;
-            _root.Next = new Node(value); 
-            _root = _root.Next;
+            return base.Equals(obj);
         }
     }
 }
