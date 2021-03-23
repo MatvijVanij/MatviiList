@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatviiList", "MatviiList\MatviiList.csproj", "{23E10063-518F-4028-BB17-7B413FC2C0B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatviiListTests", "MatviiListTests\MatviiListTests.csproj", "{3DD055E6-AF51-409B-8156-3FD400D0CED1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatviiListTests", "MatviiListTests\MatviiListTests.csproj", "{3DD055E6-AF51-409B-8156-3FD400D0CED1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
