@@ -75,7 +75,7 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
-        [TestCase(2, 99, new int[] { 1, 2, 3 }, new int[] { 1, 2,  99,3 })]
+        [TestCase(2, 99, new int[] { 1, 2, 3 }, new int[] { 1, 2, 99, 3 })]
         [TestCase(4, 99, new int[] { -1, 2, 0, 4, 4 }, new int[] { -1, 2, 0, 4, 99, 4 })]
         [TestCase(0, 99, new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { 99, 1, 2, 3, 5, 7, 8 })]
         [TestCase(3, 99, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9, 99, 0, 67, 9, 87, -1 })]
@@ -101,18 +101,18 @@ namespace MatviiListTests
         //    });
         //}
 
-        //[TestCase(0, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 11, 22, 33, 1, 2, 3, 4 })]
-        //[TestCase(2, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 11, 22, 33, 3, 4 })]
-        //[TestCase(4, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4, 11, 22, 33 })]
-        //public void AddByIndex_WhenGetList_ShouldAddByIndex(int index, int[] newlist, int[] actualArr, int[] expectedArr)
-        //{
-        //    ArrayList list = new ArrayList(newlist);
-        //    ArrayList actual = new ArrayList(actualArr);
-        //    ArrayList expected = new ArrayList(expectedArr);
+        [TestCase(0, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 11, 22, 33, 1, 2, 3, 4 })]
+        [TestCase(2, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 11, 22, 33, 3, 4 })]
+        [TestCase(4, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4, 11, 22, 33 })]
+        public void AddByIndex_WhenGetList_ShouldAddByIndex(int index, int[] newlist, int[] actualArr, int[] expectedArr)
+        {
+            LinkedList list = new LinkedList(newlist);
+            LinkedList actual = new LinkedList(actualArr);
+            LinkedList expected = new LinkedList(expectedArr);
 
-        //    actual.AddByIndex(index, list);
-        //    Assert.AreEqual(actual, expected);
-        //}
+            actual.AddByIndex(index, list);
+            Assert.AreEqual(actual, expected);
+        }
 
         //[TestCase(-655, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3 })]
         //[TestCase(5, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3 })]
@@ -168,56 +168,86 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
-        [TestCase(5, new int[] { 11, 22, 33 })]
-        [TestCase(-1, new int[] { 11, 22, 33 })]
-        [TestCase(-14, new int[] { 11, 22, 33 })]
-        public void RemoveByIndex_WhenindexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int[] expectedArr)
-        {
-            Assert.Throws<IndexOutOfRangeException>(() =>
-            {
-                ArrayList actual = new ArrayList(expectedArr);
+        //[TestCase(5, new int[] { 11, 22, 33 })]
+        //[TestCase(-1, new int[] { 11, 22, 33 })]
+        //[TestCase(-14, new int[] { 11, 22, 33 })]
+        //public void RemoveByIndex_WhenindexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int[] expectedArr)
+        //{
+        //    Assert.Throws<IndexOutOfRangeException>(() =>
+        //    {
+        //        LinkedList actual = new LinkedList(expectedArr);
 
-                actual.RemoveByIndex(index);
-            });
+        //        actual.RemoveByIndex(index);
+        //    });
+        //}
+
+        [TestCase(3, new int[] { 1, 2, 3 }, new int[] { })]
+        [TestCase(2, new int[] { 1, 2, 3 }, new int[] { 1 })]
+        [TestCase(0, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4 })]
+        [TestCase(1, new int[] { 1, 2, 3, 4, 5, 7, 8 }, new int[] { 1, 2, 3, 4, 5, 7 })]
+        [TestCase(5, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9 })]
+        public void RemoveLast_WhenGetNElements_ShouldRemoveLastNElements(int nElements, int[] actualArr, int[] expectedArr)
+        {
+            LinkedList actual = new LinkedList(actualArr);
+            LinkedList expected = new LinkedList(expectedArr);
+
+            actual.RemoveLast(nElements);
+            Assert.AreEqual(actual, expected);
         }
 
-        //[TestCase(2, new int[] { 1, 2, 3 }, new int[] { 1 })]
-        //[TestCase(0, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4 })]
-        //[TestCase(1, new int[] { 1, 2, 3, 4, 5, 7, 8 }, new int[] { 1, 2, 3, 4, 5, 7 })]
-        //[TestCase(5, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9 })]
-        //public void RemoveLast_WhenGetNElements_ShouldRemoveLastNElements(int nElements, int[] actualArr, int[] expectedArr)
+        [TestCase(1, new int[] { 1, 2, 3 }, new int[] { 2, 3 })]
+        [TestCase(0, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4 })]
+        [TestCase(5, new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { 8 })]
+        [TestCase(6, new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { })]
+        [TestCase(4, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { 67, 9, 87, -1 })]
+        public void RemoveFirst_WhenGetNElements_ShouldRemoveFirstNElements(int nElements, int[] actualArr, int[] expectedArr)
+        {
+            LinkedList actual = new LinkedList(actualArr);
+            LinkedList expected = new LinkedList(expectedArr);
+
+            actual.RemoveFirst(nElements);
+            Assert.AreEqual(actual, expected);
+        }
+
+        [TestCase(1, 2, new int[] { 1, 2, 3, 6 }, new int[] { 1, 6 })]
+        [TestCase(0, 4, new int[] { 1, 2, 3, 4, -3, -5 }, new int[] { -3, -5 })]
+        [TestCase(0, 6, new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { })]
+        [TestCase(2, 3, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9, 87, -1 })]
+        [TestCase(5, 2, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9, 0, 67, -1 })]
+        public void RemoveByIndex_WhenGetNElementsAndIndex_ShouldRemoveNElementsbyIndex(int index, int nElements, int[] actualArr, int[] expectedArr)
+        {
+            LinkedList actual = new LinkedList(actualArr);
+            LinkedList expected = new LinkedList(expectedArr);
+
+            actual.RemoveByIndex(index, nElements);
+            Assert.AreEqual(actual, expected);
+        }
+
+        [TestCase(1, 100, new int[] { 2, 3, 6 }, new int[] { 2, 100, 6 })]
+        [TestCase(0, 100, new int[] { 1, 2, 1, 3, 6 }, new int[] { 100, 2, 1, 3, 6 })]
+        [TestCase(7, 100, new int[] { 1, -3, 2, -3, 3, 4, -3, -5 }, new int[] { 1, -3, 2, -3, 3, 4, -3, 100 })]
+        [TestCase(5, 100, new int[] { -3, 67, 5, 9, 67, 0, 67, 9, 87, -1 }, new int[] { -3, 67, 5, 9, 67, 100, 67, 9, 87, -1 })]
+        public void ChangeByIndex_WhenGetList_ShouldChangeValueByIndex(int index, int value, int[] actualArr, int[] expectedArr)
+        {
+            LinkedList actual = new LinkedList(actualArr);
+            LinkedList expected = new LinkedList(expectedArr);
+
+            actual.ChangeByIndex(index, value);
+            Assert.AreEqual(actual, expected);
+        }
+
+        //[TestCase(5, 111, new int[] { 11, 22, 33 })]
+        //[TestCase(3, 111, new int[] { 11, 22, 33 })]
+        //[TestCase(-14, 111, new int[] { 11, 22, 33 })]
+        //[TestCase(-1, 111, new int[] { 11, 22, 33 })]
+        //public void ChangeByIndex_WhenIndexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int value, int[] expectedArr)
         //{
-        //    ArrayList actual = new ArrayList(actualArr);
-        //    ArrayList expected = new ArrayList(expectedArr);
+        //    Assert.Throws<IndexOutOfRangeException>(() =>
+        //    {
+        //        ArrayList actual = new ArrayList(expectedArr);
 
-        //    actual.RemoveLast(nElements);
-        //    Assert.AreEqual(actual, expected);
-        //}
-
-        //[TestCase(1, new int[] { 1, 2, 3 }, new int[] { 2, 3 })]
-        //[TestCase(0, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4 })]
-        //[TestCase(6, new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { })]
-        //[TestCase(4, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { 67, 9, 87, -1 })]
-        //public void RemoveFirst_WhenGetNElements_ShouldRemoveFirstNElements(int nElements, int[] actualArr, int[] expectedArr)
-        //{
-        //    ArrayList actual = new ArrayList(actualArr);
-        //    ArrayList expected = new ArrayList(expectedArr);
-
-        //    actual.RemoveFirst(nElements);
-        //    Assert.AreEqual(actual, expected);
-        //}
-
-        //[TestCase(1, 2, new int[] { 1, 2, 3, 6 }, new int[] { 1, 6 })]
-        //[TestCase(0, 4, new int[] { 1, 2, 3, 4, -3, -5 }, new int[] { -3, -5 })]
-        //[TestCase(0, 6, new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { })]
-        //[TestCase(2, 2, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 67, 9, 87, -1 })]
-        //public void RemoveByIndex_WhenGetNElementsAndIndex_ShouldRemoveNElementsbyIndex(int index, int nElements, int[] actualArr, int[] expectedArr)
-        //{
-        //    ArrayList actual = new ArrayList(actualArr);
-        //    ArrayList expected = new ArrayList(expectedArr);
-
-        //    actual.RemoveByIndex(index, nElements);
-        //    Assert.AreEqual(actual, expected);
+        //        actual.ChangeByIndex(index, value);
+        //    });
         //}
 
         //[TestCase(5, 1, new int[] { 11, 22, 33 })]
@@ -234,29 +264,29 @@ namespace MatviiListTests
         //    });
         //}
 
-        //[TestCase(new int[] { 1, 2, 3, 6, 6 }, 3, 2)]
-        //[TestCase(new int[] { 1, 2, 3, 4, -3, -5 }, -5, 5)]
-        //[TestCase(new int[] { 1, 2, 3, 0, 7, 8 }, 0, 3)]
-        //[TestCase(new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, 67, 4)]
-        //public void GetIndexByValue_WhenGetValue_ShouldIndexForValue(int[] actualArray, int value, int expected)
-        //{
-        //    ArrayList Array = new ArrayList(actualArray);
+        [TestCase(33, 2, new int[] { 1, 2, 33, 6, 6 })]
+        [TestCase(-55, 5, new int[] { 1, 2, 3, 4, -3, -55 })]
+        [TestCase(000, 3, new int[] { 1, 2, 3, 000, 7, 8 })]
+        [TestCase(6700, 4, new int[] { -3, 5, 9, 0, 6700, 9, 87, -1 })]
+        public void GetIndexByValue_WhenGetValue_ShouldIndexForValue(int value, int expected, int[] actualArray)
+        {
+            LinkedList list = new LinkedList(actualArray);
 
-        //    int actual = Array.GetIndexByValue(value);
-        //    Assert.AreEqual(actual, expected);
-        //}
+            int actual = list.GetIndexByValue(value);
+            Assert.AreEqual(actual, expected);
+        }
 
-        //[TestCase(new int[] { 1, 2, 3, 6, 6 }, 6)]
-        //[TestCase(new int[] { 1, 2, 3, 4, -3, -5 }, 4)]
-        //[TestCase(new int[] { 1, 2, 3, 5, 7, 8 }, 8)]
-        //[TestCase(new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, 87)]
-        //public void FindMaxElement_WhenGetList_ShouldValueMax(int[] actualArray, int expected)
-        //{
-        //    ArrayList Array = new ArrayList(actualArray);
+        [TestCase(6,new int[] { 1, 2, 3, 6, 6 })]
+        [TestCase(4,new int[] { 1, 2, 3, 4, -3, -5 })]
+        [TestCase(8,new int[] { 1, 2, 3, 5, 7, 8 })]
+        [TestCase(87,new int[] { -3, 5, 9, 0, 67, 9, 87, -1 })]
+        public void FindMaxElement_WhenGetList_ShouldValueMax(int expected ,int[] actualArray)
+        {
+            LinkedList list = new LinkedList(actualArray);
 
-        //    int actual = Array.FindMaxElement();
-        //    Assert.AreEqual(actual, expected);
-        //}
+            int actual = list.FindMaxElement();
+            Assert.AreEqual(actual, expected);
+        }
 
         //[TestCase(new int[] { })]
         //public void FindMaxElement_WhenGetNullList_ShoudInvalidOperationException(int[] expectedArr)
@@ -269,17 +299,17 @@ namespace MatviiListTests
         //    });
         //}
 
-        //[TestCase(new int[] { 1, 2, 3, 6, 6 }, 3)]
-        //[TestCase(new int[] { 76, 1, 2, 3, 4, -3, -5 }, 0)]
-        //[TestCase(new int[] { 1, 2, 3, 5, 7, 8 }, 5)]
-        //[TestCase(new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, 6)]
-        //public void FindMaxIndex_WhenGetList_ShouldIndexMax(int[] actualArray, int expected)
-        //{
-        //    ArrayList Array = new ArrayList(actualArray);
+        [TestCase(3, new int[] { 1, 2, 3, 6, 6 })]
+        [TestCase(0, new int[] { 76, 1, 2, 3, 4, -3, -5 })]
+        [TestCase(5, new int[] { 1, 2, 3, 5, 7, 8 })]
+        [TestCase(6, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 })]
+        public void FindMaxIndex_WhenGetList_ShouldIndexMax(int expected, int[] actualArray)
+        {
+            LinkedList list = new LinkedList(actualArray);
 
-        //    int actual = Array.FindMaxIndex();
-        //    Assert.AreEqual(actual, expected);
-        //}
+            int actual = list.FindMaxIndex();
+            Assert.AreEqual(actual, expected);
+        }
 
         //[TestCase(new int[] { })]
         //public void FindMaxIndex_WhenGetNullList_ShoudInvalidOperationException(int[] expectedArr)
@@ -292,17 +322,17 @@ namespace MatviiListTests
         //    });
         //}
 
-        //[TestCase(new int[] { 1, 2, 3, 6, 6 }, 1)]
-        //[TestCase(new int[] { 1, 2, 3, 4, -3, -5 }, -5)]
-        //[TestCase(new int[] { 0, 1, 2, 3, 5, 7, 8 }, 0)]
-        //[TestCase(new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, -3)]
-        //public void FindMinElement_WhenGetList_ShouldValueMin(int[] actualArray, int expected)
-        //{
-        //    ArrayList Array = new ArrayList(actualArray);
+        [TestCase(1, new int[] { 1, 2, 3, 6, 6 })]
+        [TestCase(-5, new int[] { 1, 2, 3, 4, -3, -5 })]
+        [TestCase(0, new int[] { 0, 1, 2, 3, 5, 7, 8 })]
+        [TestCase(-3, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 })]
+        public void FindMinElement_WhenGetList_ShouldValueMin(int expected, int[] actualArray)
+        {
+            LinkedList list = new LinkedList(actualArray);
 
-        //    int actual = Array.FindMinElement();
-        //    Assert.AreEqual(actual, expected);
-        //}
+            int actual = list.FindMinElement();
+            Assert.AreEqual(actual, expected);
+        }
 
         //[TestCase(new int[] { })]
         //public void FindMinElement_WhenGetNullList_ShoudInvalidOperationException(int[] expectedArr)
@@ -315,17 +345,17 @@ namespace MatviiListTests
         //    });
         //}
 
-        //[TestCase(new int[] { 1, 2, 3, 6, 6 }, 0)]
-        //[TestCase(new int[] { 76, 1, 2, 3, 4, -3, -5 }, 6)]
-        //[TestCase(new int[] { 1, 2, 3, -7, 5, 7, 8 }, 3)]
-        //[TestCase(new int[] { -3, 5, 9, 0, 67, 9, -87, -1 }, 6)]
-        //public void FindMinIndex_WhenGettList_ShouldIndexMin(int[] actualArray, int expected)
-        //{
-        //    ArrayList Array = new ArrayList(actualArray);
+        [TestCase(0, new int[] { 1, 2, 3, 6, 6 })]
+        [TestCase(6, new int[] { 76, 1, 2, 3, 4, -3, -5 })]
+        [TestCase(3, new int[] { 1, 2, 3, -7, 5, 7, 8 })]
+        [TestCase(6, new int[] { -3, 5, 9, 0, 67, 9, -87, -1 })]
+        public void FindMinIndex_WhenGettList_ShouldIndexMin(int expected, int[] actualArray)
+        {
+            LinkedList list = new LinkedList(actualArray);
 
-        //    int actual = Array.FindMinIndex();
-        //    Assert.AreEqual(actual, expected);
-        //}
+            int actual = list.FindMinIndex();
+            Assert.AreEqual(actual, expected);
+        }
 
         //[TestCase(new int[] { })]
         //public void FindMinIndex_WhenGetNullList_ShoudInvalidOperationException(int[] expectedArr)
@@ -338,32 +368,7 @@ namespace MatviiListTests
         //    });
         //}
 
-        //[TestCase(1, 100, new int[] { 2, 3, 6 }, new int[] { 2, 100, 6 })]
-        //[TestCase(0, 100, new int[] { 1, 2, 1, 3, 6 }, new int[] { 100, 2, 1, 3, 6 })]
-        //[TestCase(7, 100, new int[] { 1, -3, 2, -3, 3, 4, -3, -5 }, new int[] { 1, -3, 2, -3, 3, 4, -3, 100 })]
-        //[TestCase(5, 100, new int[] { -3, 67, 5, 9, 67, 0, 67, 9, 87, -1 }, new int[] { -3, 67, 5, 9, 67, 100, 67, 9, 87, -1 })]
-        //public void ChangeByIndex_WhenGetList_ShouldChangeValueByIndex(int index, int value, int[] actualArr, int[] expectedArr)
-        //{
-        //    ArrayList actual = new ArrayList(actualArr);
-        //    ArrayList expected = new ArrayList(expectedArr);
 
-        //    actual.ChangeByIndex(index, value);
-        //    Assert.AreEqual(actual, expected);
-        //}
-
-        //[TestCase(5, 111, new int[] { 11, 22, 33 })]
-        //[TestCase(3, 111, new int[] { 11, 22, 33 })]
-        //[TestCase(-14, 111, new int[] { 11, 22, 33 })]
-        //[TestCase(-1, 111, new int[] { 11, 22, 33 })]
-        //public void ChangeByIndex_WhenIndexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int value, int[] expectedArr)
-        //{
-        //    Assert.Throws<IndexOutOfRangeException>(() =>
-        //    {
-        //        ArrayList actual = new ArrayList(expectedArr);
-
-        //        actual.ChangeByIndex(index, value);
-        //    });
-        //}
 
         //[TestCase(new int[] { }, new int[] { })]
         //[TestCase(new int[] { 1, 2, 3 }, new int[] { 3, 2, 1 })]

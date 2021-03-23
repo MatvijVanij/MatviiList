@@ -16,14 +16,9 @@ namespace MatviiList
         {
             get
             {
-                if (index >= 0 && index <= Length)
-                {
-                    return GetNodeByIndex(index).Value;
-                }
-                else
-                {
-                    throw new IndexOutOfRangeException("");
-                }
+
+                return GetNodeByIndex(index).Value;
+               
             }
             set
             {
@@ -139,13 +134,17 @@ namespace MatviiList
 
         public void AddByIndex(int index, int value)
         {
-            if (index >= 0 && index <= Length)
+            if (index == 0)
+            {
+                AddFirst(value);
+            }
+            else
             {
                 if (Length != 0)
                 {
-                    Length++;
                     Node node = new Node(value);
                     Node current = GetNodeByIndex(index - 1);
+
                     node.Next = current.Next;
                     current.Next = node;
                 }
@@ -156,22 +155,40 @@ namespace MatviiList
                 }
                 Length++;
             }
-            else
-            {
-                throw new ArgumentException("");
-            }
         }
 
-        public void AddByIndex(int index ,LinkedList list)
+        public void AddByIndex(int index, LinkedList list)
         {
-            
+            if (index != 0)
+            {
+                if (list.Length != 0)
+                {
+
+                    Node current = GetNodeByIndex(index - 1);
+
+                    list._tail.Next = current.Next;
+                    list._tail = _tail;
+                    _tail = current;
+
+                    int newLengthList = list.Length + Length - index;
+                    Length = index;
+
+                    for (int i = 0; i < newLengthList; i++)
+                    {
+                        AddLast(list[i]);
+                    }
+                }
+            }
+            else
+            {
+                AddFirst(list);
+            }
+
         }
 
         public void RemoveLast()
         {
             RemoveByIndex(Length - 1);
-         
-
         }
 
         public void RemoveFirst()
@@ -179,44 +196,181 @@ namespace MatviiList
             if (Length != 0)
             {
                 _root = _root.Next;
-                Length--;
+                --Length;
             }
         }
 
         public void RemoveByIndex(int index)
         {
-
-            if (Length != 0)
+            if (index == 0)
             {
-                if (Length != 1)
+                RemoveFirst();
+            }
+            else
+            {
+                if (Length != 0)
                 {
-                    Node current = GetNodeByIndex(index - 1);
+                    if (Length != 1)
+                    {
+                        Node current = GetNodeByIndex(index - 1);
+                        current.Next = current.Next.Next;
+                        _tail = current;
 
-                    current.Next = current.Next.Next;
-                    _tail = current;
-                 
+                    }
+                    else
+                    {
+                        _root = null;
+                        _tail = null;
+                    }
+                    Length--;
                 }
-                else
-                {
-                    _root = null;
-                    _tail = null;
-                }
-                Length--;
             }
         }
 
         public void RemoveLast(int nElements)
         {
+            if (Length != 0)
+            {
+                if (Length > nElements)
+                {
+                    Length -= nElements;
+                    _tail = GetNodeByIndex(Length - 1);
+                    _tail.Next = null;
+                }
+                else
+                {
+                    Length = 0;
+                    _root = null;
+                    _tail = null;
+                }
+            }
         }
 
         public void RemoveFirst(int nElements)
         {
+            if (Length != 0)
+            {
+                if (Length > nElements)
+                {
+                    _root = GetNodeByIndex(nElements);
+                    Length -= nElements;
+                }
+                else
+                {
+                    Length = 0;
+                    _root = null;
+                    _tail = null;
+                }
+            }
         }
 
         public void RemoveByIndex(int index, int nElements)
         {
+            if (Length != 0)
+            {
+                if (Length - nElements > 0)
+                {
+                    if (index != 0)
+                    {
+                        Node indexNode = GetNodeByIndex(index - 1);
+                        Node nElementNode = GetNodeByIndex(index + nElements);
+                        indexNode.Next = nElementNode;
+                        Length -= nElements;
+                    }
+                    else
+                    {
+                        RemoveFirst(nElements);
+                    }
+                }
+                else
+                {
+                    Length = 0;
+                    _root = null;
+                    _tail = null;
+                }
+            }
+
         }
 
+        public int GetIndexByValue(int value)
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                if (GetNodeByIndex(i).Value == value)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        public void ChangeByIndex(int index, int value)
+        {
+            GetNodeByIndex(index).Value = value;
+        }
+
+        public void Revers()
+        {
+            Node _tail = null, current = _root, Next = null;
+            while (current != null)
+            {
+                Next = current.Next;
+                current.Next = _tail;
+                _tail = current;
+                current = _tail;
+            }
+            _root = _tail;
+        }
+
+        public int FindMaxIndex()
+        {
+            int index = GetIndexByValue(FindMaxElement());
+            return index;
+        }
+
+        public int FindMaxElement()
+        {
+            int max = _root.Value;
+
+            for (int i = 0; i < Length; i++)
+            {
+                if (GetNodeByIndex(i).Value > max)
+                {
+                    max = GetNodeByIndex(i).Value;
+                }
+            }
+            
+            return max;
+        }
+
+        public int FindMinIndex()
+        {
+           int index = GetIndexByValue(FindMinElement());
+
+            return index;
+        }
+
+        public int FindMinElement()
+        {
+            int min = _root.Value;
+
+            for (int i = 0; i < Length; i++)
+            {
+                if (GetNodeByIndex(i).Value < min)
+                {
+                    min = GetNodeByIndex(i).Value;
+                }
+            }
+            return min;
+        }
+        public void SortIncrease()
+        {
+
+        }
+        public void SortDecrease()
+        {
+
+        }
         public override string ToString()
         {
             if (Length != 0)
@@ -245,7 +399,7 @@ namespace MatviiList
             {
 
                 LinkedList list = (LinkedList)obj;
-                bool iseqvel = true;
+                bool iseqvel = false;
 
                 if (this.Length == list.Length)
                 {
@@ -270,6 +424,7 @@ namespace MatviiList
             }
             throw new ArgumentException("obj is null");
         }
+
         private Node GetNodeByIndex(int index)
         {
             Node current = _root;
