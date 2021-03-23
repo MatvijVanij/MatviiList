@@ -19,7 +19,7 @@ namespace MatviiListTests
             });
         }
 
-        //[TestCase(99, new int[] { }, new int[] { 99 })]
+        [TestCase(99, new int[] { }, new int[] { 99 })]
         [TestCase(-11, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, -11 })]
         [TestCase(33, new int[] { -1, 2, 0, 4, 4 }, new int[] { -1, 2, 0, 4, 4, 33 })]
         [TestCase(00, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9, 0, 67, 9, 87, -1, 00 })]
@@ -32,22 +32,22 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
-        //[TestCase(new int[] { 11, 22, 33 }, new int[] { 1 }, new int[] { 1, 11, 22, 33 })]
-        //[TestCase(new int[] { 99, 77 }, new int[] { 4, 6, 3 }, new int[] { 4, 6, 3, 99, 77 })]
-        //[TestCase(new int[] { 44 }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 44 })]
-        //[TestCase(new int[] { 77 }, new int[] { }, new int[] { 77 })]
-        //[TestCase(new int[] { }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 })]
-        //public void AddLast_WhenGetList_ShouldAddByLast(int[] newlist, int[] actualArr, int[] expectedArr)
-        //{
-        //    ArrayList list = new ArrayList(newlist);
-        //    ArrayList actual = new ArrayList(actualArr);
-        //    ArrayList expected = new ArrayList(expectedArr);
+        [TestCase(new int[] { 11, 22, 33 }, new int[] { 1 }, new int[] { 1, 11, 22, 33 })]
+        [TestCase(new int[] { 99, 77 }, new int[] { 4, 6, 3 }, new int[] { 4, 6, 3, 99, 77 })]
+        [TestCase(new int[] { 44 }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 44 })]
+        [TestCase(new int[] { 77 }, new int[] { }, new int[] { 77 })]
+        [TestCase(new int[] { }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 })]
+        public void AddLast_WhenGetList_ShouldAddByLast(int[] newlist, int[] actualArr, int[] expectedArr)
+        {
+            LinkedList list = new LinkedList(newlist);
+            LinkedList actual = new LinkedList(actualArr);
+            LinkedList expected = new LinkedList(expectedArr);
 
-        //    actual.AddLast(list);
-        //    Assert.AreEqual(actual, expected);
-        //}
+            actual.AddLast(list);
+            Assert.AreEqual(actual, expected);
+        }
 
-       // [TestCase(99, new int[] { }, new int[] { 99 })]
+        [TestCase(99, new int[] { }, new int[] { 99 })]
         [TestCase(-11, new int[] { 1, 2, 3 }, new int[] { -11, 1, 2, 3 })]
         [TestCase(33, new int[] { -1, 2, 0, 4, 4 }, new int[] { 33, -1, 2, 0, 4, 4 })]
         [TestCase(00, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { 00, -3, 5, 9, 0, 67, 9, 87, -1 })]
@@ -60,22 +60,22 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
-        //[TestCase(new int[] { 11, 22, 33 }, new int[] { 1 }, new int[] { 11, 22, 33, 1 })]
-        //[TestCase(new int[] { 99, 77 }, new int[] { 4, 6, 3 }, new int[] { 99, 77, 4, 6, 3 })]
-        //[TestCase(new int[] { 44 }, new int[] { 1, 2, 3 }, new int[] { 44, 1, 2, 3 })]
-        //[TestCase(new int[] { 77 }, new int[] { }, new int[] { 77 })]
-        //[TestCase(new int[] { }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 })]
-        //public void AddFirst_WhenGetList_ShouldAddListFirst(int[] newlist, int[] actualArr, int[] expectedArr)
-        //{
-        //    ArrayList list = new ArrayList(newlist);
-        //    ArrayList actual = new ArrayList(actualArr);
-        //    ArrayList expected = new ArrayList(expectedArr);
+        [TestCase(new int[] { 11, 22, 33 }, new int[] { 1 }, new int[] { 11, 22, 33, 1 })]
+        [TestCase(new int[] { 99, 77 }, new int[] { 4, 6, 3 }, new int[] { 99, 77, 4, 6, 3 })]
+        [TestCase(new int[] { 44 }, new int[] { 1, 2, 3 }, new int[] { 44, 1, 2, 3 })]
+        [TestCase(new int[] { 77 }, new int[] { }, new int[] { 77 })]
+        [TestCase(new int[] { }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 })]
+        public void AddFirst_WhenGetList_ShouldAddListFirst(int[] newlist, int[] actualArr, int[] expectedArr)
+        {
+            LinkedList list = new LinkedList(newlist);
+            LinkedList actual = new LinkedList(actualArr);
+            LinkedList expected = new LinkedList(expectedArr);
 
-        //    actual.AddFirst(list);
-        //    Assert.AreEqual(actual, expected);
-        //}
+            actual.AddFirst(list);
+            Assert.AreEqual(actual, expected);
+        }
 
-        [TestCase(3, 99, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 99 })]
+        [TestCase(2, 99, new int[] { 1, 2, 3 }, new int[] { 1, 2,  99,3 })]
         [TestCase(4, 99, new int[] { -1, 2, 0, 4, 4 }, new int[] { -1, 2, 0, 4, 99, 4 })]
         [TestCase(0, 99, new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { 99, 1, 2, 3, 5, 7, 8 })]
         [TestCase(3, 99, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9, 99, 0, 67, 9, 87, -1 })]
@@ -142,7 +142,7 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
-        //[TestCase(new int[] { }, new int[] { })]
+        [TestCase(new int[] { }, new int[] { })]
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 2, 3 })]
         [TestCase(new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { 2, 3, 5, 7, 8 })]
         [TestCase(new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { 5, 9, 0, 67, 9, 87, -1 })]

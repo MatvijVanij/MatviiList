@@ -16,7 +16,7 @@ namespace MatviiList
         {
             get
             {
-                if (index < 0 && index >= Length)
+                if (index >= 0 && index <= Length)
                 {
                     return GetNodeByIndex(index).Value;
                 }
@@ -27,7 +27,7 @@ namespace MatviiList
             }
             set
             {
-                if (index < 0 && index >= Length)
+                if (index >= 0 && index <= Length)
                 {
                     GetNodeByIndex(index).Value = value;
                 }
@@ -85,34 +85,93 @@ namespace MatviiList
 
         public void AddLast(int value)
         {
-            Length++;
-            _tail.Next = new Node(value);
-            _tail = _tail.Next;
+            if (Length != 0)
+            {
+                Length++;
+                _tail.Next = new Node(value);
+                _tail = _tail.Next;
+            }
+            else
+            {
+                Length = 1;
+                _root = new Node(value);
+                _tail = _root;
+            }
+        }
+
+        public void AddLast(LinkedList list)
+        {
+            if (!(list is null))
+            {
+                for (int i = 0; i < list.Length; i++)
+                {
+                    AddLast(list[i]);
+                }
+            }
+            else
+            {
+                throw new ArgumentException("");
+            }
         }
 
         public void AddFirst(int value)
         {
-            Node node = new Node(value);
-            _root.Value = value;
-            _root.Next = node;
             Length++;
+            Node node = new Node(value);
+            node.Next = _root;
+            _root = node;
+        }
 
+        public void AddFirst(LinkedList list)
+        {
+            if (!(list is null))
+            {
+                for (int i = list.Length - 1; i >= 0; i--)
+                {
+                    AddFirst(list[i]);
+                }
+            }
+            else
+            {
+                throw new ArgumentException("");
+            }
         }
 
         public void AddByIndex(int index, int value)
         {
-            Length++;
-            Node current = GetNodeByIndex(index);
-            Node tmp = current.Next;
-            current = new Node(value);
-            current.Next = tmp;
+            if (index >= 0 && index <= Length)
+            {
+                if (Length != 0)
+                {
+                    Length++;
+                    Node node = new Node(value);
+                    Node current = GetNodeByIndex(index - 1);
+                    node.Next = current.Next;
+                    current.Next = node;
+                }
+                else
+                {
+                    _root = new Node(value);
+                    _tail = _root;
+                }
+                Length++;
+            }
+            else
+            {
+                throw new ArgumentException("");
+            }
+        }
 
+        public void AddByIndex(int index ,LinkedList list)
+        {
+            
         }
 
         public void RemoveLast()
         {
-            _tail = _tail.Next;
-            Length--;
+            RemoveByIndex(Length - 1);
+         
+
         }
 
         public void RemoveFirst()
@@ -126,9 +185,24 @@ namespace MatviiList
 
         public void RemoveByIndex(int index)
         {
-            Node current = GetNodeByIndex(index);
-            current.Next = current.Next.Next;
-            Length--;
+
+            if (Length != 0)
+            {
+                if (Length != 1)
+                {
+                    Node current = GetNodeByIndex(index - 1);
+
+                    current.Next = current.Next.Next;
+                    _tail = current;
+                 
+                }
+                else
+                {
+                    _root = null;
+                    _tail = null;
+                }
+                Length--;
+            }
         }
 
         public void RemoveLast(int nElements)
@@ -167,36 +241,35 @@ namespace MatviiList
 
         public override bool Equals(object obj)
         {
-            LinkedList list = (LinkedList)obj;
-            if (this.Length != list.Length)
+            if (obj is LinkedList || obj is null)
             {
-                return false;
-            }
-            Node currentThis = this._root;
-            Node currentList = list._root;
 
-            if (currentList.Next == null && currentThis.Next == null && currentThis.Value == currentList.Value)
-            {
-                return true;
-            }
-            else
-            {
-                do
+                LinkedList list = (LinkedList)obj;
+                bool iseqvel = true;
+
+                if (this.Length == list.Length)
                 {
-                    if (currentThis.Value != currentList.Value)
+                    iseqvel = true;
+
+                    Node currentThis = this._root;
+                    Node currentList = list._root;
+
+                    while (!(currentThis is null))
                     {
-                        return false;
+                        if (currentThis.Value != currentList.Value)
+                        {
+                            iseqvel = false;
+                            break;
+                        }
+                        currentList = currentList.Next;
+                        currentThis = currentThis.Next;
+
                     }
-                    currentList = currentList.Next;
-                    currentThis = currentThis.Next;
-
                 }
-                while (!(currentThis.Next is null));
+                return iseqvel;
             }
-            return true;
+            throw new ArgumentException("obj is null");
         }
-
-
         private Node GetNodeByIndex(int index)
         {
             Node current = _root;
@@ -208,4 +281,6 @@ namespace MatviiList
         }
 
     }
+
 }
+
