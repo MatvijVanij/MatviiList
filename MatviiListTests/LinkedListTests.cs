@@ -128,18 +128,19 @@ namespace MatviiListTests
         //    });
         //}
 
-        //[TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2 })]
-        //[TestCase(new int[] { -1, 2, 0, 4, 4 }, new int[] { -1, 2, 0, 4 })]
-        //[TestCase(new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { 1, 2, 3, 5, 7 })]
-        //[TestCase(new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9, 0, 67, 9, 87, })]
-        //public void RemoveLast_WhenGetValue_ShouldRemoveLast(int[] actualArr, int[] expectedArr)
-        //{
-        //    ArrayList actual = new ArrayList(actualArr);
-        //    ArrayList expected = new ArrayList(expectedArr);
+        [TestCase(new int[] { 1 }, new int[] { })]
+        [TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2 })]
+        [TestCase(new int[] { -1, 2, 0, 4, 4 }, new int[] { -1, 2, 0, 4 })]
+        [TestCase(new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { 1, 2, 3, 5, 7 })]
+        [TestCase(new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9, 0, 67, 9, 87, })]
+        public void RemoveLast_WhenGetValue_ShouldRemoveLast(int[] actualArr, int[] expectedArr)
+        {
+            LinkedList actual = new LinkedList(actualArr);
+            LinkedList expected = new LinkedList(expectedArr);
 
-        //    actual.RemoveLast();
-        //    Assert.AreEqual(actual, expected);
-        //}
+            actual.RemoveLast();
+            Assert.AreEqual(actual, expected);
+        }
 
         //[TestCase(new int[] { }, new int[] { })]
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 2, 3 })]

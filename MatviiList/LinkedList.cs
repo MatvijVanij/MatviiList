@@ -111,6 +111,8 @@ namespace MatviiList
 
         public void RemoveLast()
         {
+            _tail = _tail.Next;
+            Length--;
         }
 
         public void RemoveFirst()
