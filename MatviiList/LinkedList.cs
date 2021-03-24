@@ -343,18 +343,18 @@ namespace MatviiList
             GetNodeByIndex(index).Value = value;
         }
 
-        public void Revers()///
+        public void Revers()
         {
-            Node _tail = null, current = _root, Next = null;
-            while (current != null)
-            {
-                Next = current.Next;
-                current.Next = _tail;
-                _tail = current;
-                current = _tail;
-            }
-            _root = _tail;
+            Node tmpFisrt;
+            Node tmpSecond;
+            Node current;
+
+            tmpFisrt = _root.Next;
+            tmpSecond = _root.Next.Next;
+            _root.Next.Next = _root.Next;
+            _root = null;
         }
+
 
         public int FindMaxIndex()
         {
@@ -427,7 +427,14 @@ namespace MatviiList
 
         public void SortIncrease()
         {
-
+            for (int i = 0; i < Length-1; i++)
+            {
+                if (GetNodeByIndex(i).Value > GetNodeByIndex(i+1).Value)
+                {
+                    Node tmp = GetNodeByIndex(i).Next;
+                    GetNodeByIndex(i).Next = GetNodeByIndex(i);
+                }
+            }
         }
         public void SortDecrease()
         {

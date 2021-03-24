@@ -379,18 +379,18 @@ namespace MatviiListTests
 
 
 
-        //[TestCase(new int[] { }, new int[] { })]
-        //[TestCase(new int[] { 1, 2, 3 }, new int[] { 3, 2, 1 })]
-        //[TestCase(new int[] { -1, 0, 3 }, new int[] { 3, 0, -1 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, new int[] { 6, 5, 4, 3, 2, 1 })]
-        //public void Revers_WhenGetList_ShouldRevers(int[] actualArr, int[] expectedArr)
-        //{
-        //    ArrayList actual = new ArrayList(actualArr);
-        //    ArrayList expected = new ArrayList(expectedArr);
+       // [TestCase(new int[] { }, new int[] { })]
+        [TestCase(new int[] { 1, 2 }, new int[] { 2, 1 })]
+        [TestCase(new int[] { -1, 0, 3 }, new int[] { 3, 0, -1 })]
+       // [TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, new int[] { 6, 5, 4, 3, 2, 1 })]
+        public void Revers_WhenGetList_ShouldRevers(int[] actualArr, int[] expectedArr)
+        {
+            LinkedList actual = new LinkedList(actualArr);
+            LinkedList expected = new LinkedList(expectedArr);
 
-        //    actual.Revers();
-        //    Assert.AreEqual(actual, expected);
-        //}
+            actual.Revers();
+            Assert.AreEqual(actual, expected);
+        }
 
         //[TestCase(new int[] { }, new int[] { })]
         //[TestCase(new int[] { 1, 2, 3 }, new int[] { 3, 2, 1 })]
@@ -411,8 +411,8 @@ namespace MatviiListTests
         //[TestCase(new int[] { -9, 4, -8 }, new int[] { -9, -8, 4 })]
         //public void SortIncrease_WhenGetList_ShouldSortIncrease(int[] actualArr, int[] expectedArr)
         //{
-        //    ArrayList actual = new ArrayList(actualArr);
-        //    ArrayList expected = new ArrayList(expectedArr);
+        //    LinkedList actual = new LinkedList(actualArr);
+        //    LinkedList expected = new LinkedList(expectedArr);
 
         //    actual.SortIncrease();
         //    Assert.AreEqual(actual, expected);
