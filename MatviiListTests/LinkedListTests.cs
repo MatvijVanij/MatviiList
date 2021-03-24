@@ -157,7 +157,7 @@ namespace MatviiListTests
 
         [TestCase(0, new int[] { 1, 2, 3 }, new int[] { 2, 3 })]
         [TestCase(3, new int[] { 1, 2, 3, 5 }, new int[] { 1, 2, 3 })]
-        [TestCase(5, new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { 1, 2, 3, 5, 7, })]
+        [TestCase(5, new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { 1, 2, 3, 5, 7 })]
         [TestCase(1, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 9, 0, 67, 9, 87, -1 })]
         public void RemoveByIndex_WhenGetIndex_ShouldRemoveValueByIndex(int index, int[] actualArr, int[] expectedArr)
         {

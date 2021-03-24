@@ -159,29 +159,37 @@ namespace MatviiList
 
         public void AddByIndex(int index, LinkedList list)
         {
-            if (index != 0)
+            if (index >= 0 || index < Length)
             {
-                if (list.Length != 0)
+                if (index != 0)
                 {
-
-                    Node current = GetNodeByIndex(index - 1);
-
-                    list._tail.Next = current.Next;
-                    list._tail = _tail;
-                    _tail = current;
-
-                    int newLengthList = list.Length + Length - index;
-                    Length = index;
-
-                    for (int i = 0; i < newLengthList; i++)
+                    if (list.Length != 0)
                     {
-                        AddLast(list[i]);
+
+                        Node current = GetNodeByIndex(index - 1);
+
+                        list._tail.Next = current.Next;
+                        list._tail = _tail;
+                        _tail = current;
+
+                        int newLengthList = list.Length + Length - index;
+                        Length = index;
+
+                        for (int i = 0; i < newLengthList; i++)
+                        {
+                            AddLast(list[i]);
+                        }
+                        list._tail.Next = null;
                     }
                 }
+                else
+                {
+                    AddFirst(list);
+                }
             }
-            else
+            else 
             {
-                AddFirst(list);
+                throw new ArgumentOutOfRangeException(" ");
             }
 
         }
@@ -266,41 +274,54 @@ namespace MatviiList
 
         public void RemoveByIndex(int index, int nElements)
         {
-            if (Length != 0)
+            if ((index >= 0 && index < Length) && nElements >= 0)
             {
-                if (Length - nElements > 0)
+                if (Length != 0 || nElements != 0)
                 {
                     if (index != 0)
                     {
-                        Node indexNode = GetNodeByIndex(index - 1);
-                        Node nElementNode = GetNodeByIndex(index + nElements);
-                        indexNode.Next = nElementNode;
-                        Length -= nElements;
+                        if (Length - index - nElements > 0)
+                        {
+                            Node sectionStart = GetNodeByIndex(index - 1);
+                            Node sectionEnd = GetNodeByIndex(index + nElements);
+
+                            sectionStart.Next = sectionEnd;
+                            Length -= nElements;
+                        }
+                        else
+                        {
+                            Node sectionStart = GetNodeByIndex(index - 1);
+                            sectionStart.Next = null;
+                            _tail = sectionStart;
+                            Length = index;
+                        }
                     }
                     else
                     {
                         RemoveFirst(nElements);
                     }
                 }
-                else
-                {
-                    Length = 0;
-                    _root = null;
-                    _tail = null;
-                }
             }
-
+            else
+            {
+                throw new ArgumentException("Wrong arguments");
+            }
         }
 
         public int GetIndexByValue(int value)
         {
+            Node currentNode = _root;
+
             for (int i = 0; i < Length; i++)
             {
-                if (GetNodeByIndex(i).Value == value)
+                if (currentNode.Value == value)
                 {
                     return i;
                 }
+
+                currentNode = currentNode.Next;
             }
+
             return -1;
         }
 
@@ -309,7 +330,7 @@ namespace MatviiList
             GetNodeByIndex(index).Value = value;
         }
 
-        public void Revers()////
+        public void Revers()///
         {
             Node _tail = null, current = _root, Next = null;
             while (current != null)
@@ -377,16 +398,23 @@ namespace MatviiList
         {
             int index = GetIndexByValue(value);
 
-            RemoveByIndex(index);
+            if (index != -1)
+            {
+                RemoveByIndex(index);
+            }
         }
 
         public void RemoveAllByValue(int value)
         {
-            while (_tail.Next != null)
+            int index = GetIndexByValue(value);
+
+            while (index != -1)
             {
-                RemoveByValue(value);
+                RemoveByIndex(index);
+                index = GetIndexByValue(value);
             }
         }
+
         public override string ToString()
         {
             if (Length != 0)
