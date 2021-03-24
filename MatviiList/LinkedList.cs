@@ -105,7 +105,7 @@ namespace MatviiList
             }
             else
             {
-                throw new ArgumentException("");
+                throw new ArgumentException("null is list for add");
             }
         }
 
@@ -128,38 +128,45 @@ namespace MatviiList
             }
             else
             {
-                throw new ArgumentException("");
+                throw new ArgumentException("null is list for add");
             }
         }
 
         public void AddByIndex(int index, int value)
         {
-            if (index == 0)
+            if (index >= 0 && index <= Length)
             {
-                AddFirst(value);
-            }
-            else
-            {
-                if (Length != 0)
+                if (index == 0)
                 {
-                    Node node = new Node(value);
-                    Node current = GetNodeByIndex(index - 1);
-
-                    node.Next = current.Next;
-                    current.Next = node;
+                    AddFirst(value);
                 }
                 else
                 {
-                    _root = new Node(value);
-                    _tail = _root;
+                    if (Length != 0)
+                    {
+                        Node node = new Node(value);
+                        Node current = GetNodeByIndex(index - 1);
+
+                        node.Next = current.Next;
+                        current.Next = node;
+                    }
+                    else
+                    {
+                        _root = new Node(value);
+                        _tail = _root;
+                    }
+                    Length++;
                 }
-                Length++;
+            }
+            else
+            {
+                throw new IndexOutOfRangeException(" ");
             }
         }
 
         public void AddByIndex(int index, LinkedList list)
         {
-            if (index >= 0 || index < Length)
+            if (index >= 0 && index <= Length)
             {
                 if (index != 0)
                 {
@@ -187,11 +194,10 @@ namespace MatviiList
                     AddFirst(list);
                 }
             }
-            else 
+            else
             {
-                throw new ArgumentOutOfRangeException(" ");
+                throw new IndexOutOfRangeException(" ");
             }
-
         }
 
         public void RemoveLast()
@@ -210,28 +216,35 @@ namespace MatviiList
 
         public void RemoveByIndex(int index)
         {
-            if (index == 0)
+            if (index >= 0 && index < Length)
             {
-                RemoveFirst();
+                if (index == 0)
+                {
+                    RemoveFirst();
+                }
+                else
+                {
+                    if (Length != 0)
+                    {
+                        if (Length != 1)
+                        {
+                            Node current = GetNodeByIndex(index - 1);
+                            current.Next = current.Next.Next;
+                            _tail = current;
+
+                        }
+                        else
+                        {
+                            _root = null;
+                            _tail = null;
+                        }
+                        Length--;
+                    }
+                }
             }
             else
             {
-                if (Length != 0)
-                {
-                    if (Length != 1)
-                    {
-                        Node current = GetNodeByIndex(index - 1);
-                        current.Next = current.Next.Next;
-                        _tail = current;
-
-                    }
-                    else
-                    {
-                        _root = null;
-                        _tail = null;
-                    }
-                    Length--;
-                }
+                throw new IndexOutOfRangeException(" ");
             }
         }
 
@@ -304,7 +317,7 @@ namespace MatviiList
             }
             else
             {
-                throw new ArgumentException("Wrong arguments");
+                throw new ArgumentOutOfRangeException("Wrong arguments");
             }
         }
 
@@ -345,44 +358,71 @@ namespace MatviiList
 
         public int FindMaxIndex()
         {
-            int index = GetIndexByValue(FindMaxElement());
-            return index;
+            if (Length != 0)
+            {
+                int index = GetIndexByValue(FindMaxElement());
+                return index;
+            }
+            else
+            {
+                throw new ArgumentException("Length is 0 , no elements");
+            }
         }
 
         public int FindMaxElement()
         {
-            int max = _root.Value;
-
-            for (int i = 0; i < Length; i++)
+            if (Length != 0)
             {
-                if (GetNodeByIndex(i).Value > max)
-                {
-                    max = GetNodeByIndex(i).Value;
-                }
-            }
+                int max = _root.Value;
 
-            return max;
+                for (int i = 0; i < Length; i++)
+                {
+                    if (GetNodeByIndex(i).Value > max)
+                    {
+                        max = GetNodeByIndex(i).Value;
+                    }
+                }
+                return max;
+            }
+            else
+            {
+                throw new ArgumentException("Length is 0 , no elements");
+            }
         }
 
         public int FindMinIndex()
         {
-            int index = GetIndexByValue(FindMinElement());
+            if (Length != 0)
+            {
+                int index = GetIndexByValue(FindMinElement());
 
-            return index;
+                return index;
+            }
+            else
+            {
+                throw new ArgumentException("Length is 0 , no elements");
+            }
         }
 
         public int FindMinElement()
         {
-            int min = _root.Value;
-
-            for (int i = 0; i < Length; i++)
+            if (Length != 0)
             {
-                if (GetNodeByIndex(i).Value < min)
+                int min = _root.Value;
+
+                for (int i = 0; i < Length; i++)
                 {
-                    min = GetNodeByIndex(i).Value;
+                    if (GetNodeByIndex(i).Value < min)
+                    {
+                        min = GetNodeByIndex(i).Value;
+                    }
                 }
+                return min;
             }
-            return min;
+            else
+            {
+                throw new ArgumentException("Length is 0 , no elements");
+            }
         }
 
         public void SortIncrease()
@@ -478,7 +518,6 @@ namespace MatviiList
             }
             return current;
         }
-
     }
 
 }
