@@ -18,7 +18,7 @@ namespace MatviiList
             {
 
                 return GetNodeByIndex(index).Value;
-               
+
             }
             set
             {
@@ -309,7 +309,7 @@ namespace MatviiList
             GetNodeByIndex(index).Value = value;
         }
 
-        public void Revers()
+        public void Revers()////
         {
             Node _tail = null, current = _root, Next = null;
             while (current != null)
@@ -339,13 +339,13 @@ namespace MatviiList
                     max = GetNodeByIndex(i).Value;
                 }
             }
-            
+
             return max;
         }
 
         public int FindMinIndex()
         {
-           int index = GetIndexByValue(FindMinElement());
+            int index = GetIndexByValue(FindMinElement());
 
             return index;
         }
@@ -363,6 +363,7 @@ namespace MatviiList
             }
             return min;
         }
+
         public void SortIncrease()
         {
 
@@ -370,6 +371,21 @@ namespace MatviiList
         public void SortDecrease()
         {
 
+        }
+
+        public void RemoveByValue(int value)
+        {
+            int index = GetIndexByValue(value);
+
+            RemoveByIndex(index);
+        }
+
+        public void RemoveAllByValue(int value)
+        {
+            while (_tail.Next != null)
+            {
+                RemoveByValue(value);
+            }
         }
         public override string ToString()
         {

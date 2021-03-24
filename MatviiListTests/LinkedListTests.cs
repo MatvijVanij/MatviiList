@@ -409,31 +409,31 @@ namespace MatviiListTests
         //    Assert.AreEqual(actual, expected);
         //}
 
-        //[TestCase(1, new int[] { 1, 2, 3, 6 }, new int[] { 2, 3, 6 })]
-        //[TestCase(-3, new int[] { 1, 2, 3, 4, -3, -5 }, new int[] { 1, 2, 3, 4, -5 })]
-        //[TestCase(8, new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { 1, 2, 3, 5, 7, })]
-        //[TestCase(67, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9, 0, 9, 87, -1 })]
-        //public void RemoveByValue_WhenGetList_ShouldRemoveFistForValue(int value, int[] actualArr, int[] expectedArr)
-        //{
-        //    ArrayList actual = new ArrayList(actualArr);
-        //    ArrayList expected = new ArrayList(expectedArr);
+        [TestCase(1, new int[] { 1, 2, 3, 6 }, new int[] { 2, 3, 6 })]
+        [TestCase(-3, new int[] { 1, 2, 3, 4, -3, -5 }, new int[] { 1, 2, 3, 4, -5 })]
+        [TestCase(8, new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { 1, 2, 3, 5, 7, })]
+        [TestCase(67, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9, 0, 9, 87, -1 })]
+        public void RemoveByValue_WhenGetList_ShouldRemoveFistForValue(int value, int[] actualArr, int[] expectedArr)
+        {
+            LinkedList actual = new LinkedList(actualArr);
+            LinkedList expected = new LinkedList(expectedArr);
 
-        //    actual.RemoveByValue(value);
-        //    Assert.AreEqual(actual, expected);
-        //}
+            actual.RemoveByValue(value);
+            Assert.AreEqual(actual, expected);
+        }
 
-        //[TestCase(1, new int[] { 2, 3, 6 }, new int[] { 2, 3, 6 })]
-        //[TestCase(1, new int[] { 1, 2, 1, 3, 6 }, new int[] { 2, 3, 6 })]
-        //[TestCase(-3, new int[] { 1, -3, 2, -3, 3, 4, -3, -5 }, new int[] { 1, 2, 3, 4, -5 })]
-        //[TestCase(8, new int[] { 1, 2, 8, 3, 5, 7, 8 }, new int[] { 1, 2, 3, 5, 7, })]
-        //[TestCase(67, new int[] { -3, 67, 5, 9, 67, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9, 0, 9, 87, -1 })]
-        //public void RemoveAllByValue_WhenGetList_ShouldRemoveAllByValue(int value, int[] actualArr, int[] expectedArr)
-        //{
-        //    ArrayList actual = new ArrayList(actualArr);
-        //    ArrayList expected = new ArrayList(expectedArr);
+        [TestCase(1, new int[] { 2, 3, 6 }, new int[] { 2, 3, 6 })]
+        [TestCase(1, new int[] { 1, 2, 1, 3, 6 }, new int[] { 2, 3, 6 })]
+        [TestCase(-3, new int[] { 1, -3, 2, -3, 3, 4, -3, -5 }, new int[] { 1, 2, 3, 4, -5 })]
+        [TestCase(8, new int[] { 1, 2, 8, 3, 5, 7, 8 }, new int[] { 1, 2, 3, 5, 7, })]
+        [TestCase(67, new int[] { -3, 67, 5, 9, 67, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9, 0, 9, 87, -1 })]
+        public void RemoveAllByValue_WhenGetList_ShouldRemoveAllByValue(int value, int[] actualArr, int[] expectedArr)
+        {
+            LinkedList actual = new LinkedList(actualArr);
+            LinkedList expected = new LinkedList(expectedArr);
 
-        //    actual.RemoveAllByValue(value);
-        //    Assert.AreEqual(actual, expected);
-        //}
+            actual.RemoveAllByValue(value);
+            Assert.AreEqual(actual, expected);
+        }
     }
 }
