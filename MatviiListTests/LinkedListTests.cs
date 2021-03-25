@@ -379,10 +379,10 @@ namespace MatviiListTests
 
 
 
-       // [TestCase(new int[] { }, new int[] { })]
+        [TestCase(new int[] { }, new int[] { })]
         [TestCase(new int[] { 1, 2 }, new int[] { 2, 1 })]
         [TestCase(new int[] { -1, 0, 3 }, new int[] { 3, 0, -1 })]
-       // [TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, new int[] { 6, 5, 4, 3, 2, 1 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, new int[] { 6, 5, 4, 3, 2, 1 })]
         public void Revers_WhenGetList_ShouldRevers(int[] actualArr, int[] expectedArr)
         {
             LinkedList actual = new LinkedList(actualArr);
@@ -390,6 +390,17 @@ namespace MatviiListTests
 
             actual.Revers();
             Assert.AreEqual(actual, expected);
+        }
+
+        [Test]
+        public void Revers_WhenGetNullList_ShoudInvalidOperationException()
+        {
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                LinkedList actual = new LinkedList(null);
+
+                actual.Revers();
+            });
         }
 
         //[TestCase(new int[] { }, new int[] { })]

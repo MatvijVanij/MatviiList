@@ -345,16 +345,30 @@ namespace MatviiList
 
         public void Revers()
         {
-            Node tmpFisrt;
-            Node tmpSecond;
-            Node current;
-
-            tmpFisrt = _root.Next;
-            tmpSecond = _root.Next.Next;
-            _root.Next.Next = _root.Next;
-            _root = null;
+            if (!(this is null))
+            {
+                if (Length > 1)
+                {
+                    _tail.Next = _root;
+                   Node tmpFisrt = _root.Next;
+                   Node tmpSecond = _root.Next.Next;
+                    _root.Next.Next = _root.Next;
+                    _root.Next = null;
+                    while (!(tmpSecond is null))
+                    {
+                        tmpFisrt.Next = _root;
+                        _root = tmpFisrt;
+                        tmpFisrt = tmpSecond;
+                        tmpSecond = tmpSecond.Next;
+                    }
+                }
+            }
+            else
+            { 
+                throw new NullReferenceException(" List is null!");
+            }
         }
-
+        
 
         public int FindMaxIndex()
         {
@@ -427,9 +441,9 @@ namespace MatviiList
 
         public void SortIncrease()
         {
-            for (int i = 0; i < Length-1; i++)
+            for (int i = 0; i < Length - 1; i++)
             {
-                if (GetNodeByIndex(i).Value > GetNodeByIndex(i+1).Value)
+                if (GetNodeByIndex(i).Value > GetNodeByIndex(i + 1).Value)
                 {
                     Node tmp = GetNodeByIndex(i).Next;
                     GetNodeByIndex(i).Next = GetNodeByIndex(i);
