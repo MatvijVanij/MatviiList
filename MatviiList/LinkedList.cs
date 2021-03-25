@@ -350,10 +350,11 @@ namespace MatviiList
                 if (Length > 1)
                 {
                     _tail.Next = _root;
-                   Node tmpFisrt = _root.Next;
-                   Node tmpSecond = _root.Next.Next;
+                    Node tmpFisrt = _root.Next;
+                    Node tmpSecond = _root.Next.Next;
                     _root.Next.Next = _root.Next;
                     _root.Next = null;
+
                     while (!(tmpSecond is null))
                     {
                         tmpFisrt.Next = _root;
@@ -364,11 +365,10 @@ namespace MatviiList
                 }
             }
             else
-            { 
+            {
                 throw new NullReferenceException(" List is null!");
             }
         }
-        
 
         public int FindMaxIndex()
         {
@@ -439,20 +439,63 @@ namespace MatviiList
             }
         }
 
-        public void SortIncrease()
-        {
-            for (int i = 0; i < Length - 1; i++)
-            {
-                if (GetNodeByIndex(i).Value > GetNodeByIndex(i + 1).Value)
-                {
-                    Node tmp = GetNodeByIndex(i).Next;
-                    GetNodeByIndex(i).Next = GetNodeByIndex(i);
-                }
-            }
-        }
         public void SortDecrease()
         {
+            Node new_root = null;
 
+            while (_root != null)
+            {
+                Node node = _root;
+                _root = _root.Next;
+
+                if (new_root == null || node.Value > new_root.Value)
+                {
+                    node.Next = new_root;
+                    new_root = node;
+                }
+                else
+                {
+                    Node current = new_root;
+                    while (current.Next != null && !(node.Value > current.Next.Value))
+                    {
+                        current = current.Next;
+                    }
+
+                    node.Next = current.Next;
+                    current.Next = node;
+                }
+            }
+            _root = new_root;
+        }
+        
+        public void SortIncrease()
+        {
+
+            Node new_root = null;
+
+            while (_root != null)
+            {
+                Node node = _root;
+                _root = _root.Next;
+
+                if (new_root == null || node.Value < new_root.Value)
+                {
+                    node.Next = new_root;
+                    new_root = node;
+                }
+                else
+                {
+                    Node current = new_root;
+                    while (current.Next != null && !(node.Value < current.Next.Value))
+                    {
+                        current = current.Next;
+                    }
+
+                    node.Next = current.Next;
+                    current.Next = node;
+                }
+            }
+            _root = new_root;
         }
 
         public void RemoveByValue(int value)

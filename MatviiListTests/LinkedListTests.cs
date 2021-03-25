@@ -377,8 +377,6 @@ namespace MatviiListTests
             });
         }
 
-
-
         [TestCase(new int[] { }, new int[] { })]
         [TestCase(new int[] { 1, 2 }, new int[] { 2, 1 })]
         [TestCase(new int[] { -1, 0, 3 }, new int[] { 3, 0, -1 })]
@@ -403,31 +401,33 @@ namespace MatviiListTests
             });
         }
 
-        //[TestCase(new int[] { }, new int[] { })]
-        //[TestCase(new int[] { 1, 2, 3 }, new int[] { 3, 2, 1 })]
-        //[TestCase(new int[] { -9, 4, -8 }, new int[] { 4, -8, -9 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, new int[] { 6, 5, 4, 3, 2, 1 })]
-        //public void SortDecrease_WhenGetList_ShouldSortDecrease(int[] actualArr, int[] expectedArr)
-        //{
-        //    ArrayList actual = new ArrayList(actualArr);
-        //    ArrayList expected = new ArrayList(expectedArr);
+        [TestCase(new int[] { }, new int[] { })]
+        [TestCase(new int[] { 2, 3 }, new int[] { 3, 2 })]
+        [TestCase(new int[] { 1, 2, 3 }, new int[] { 3, 2, 1 })]
+        [TestCase(new int[] { -9, 4, -8 }, new int[] { 4, -8, -9 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, new int[] { 6, 5, 4, 3, 2, 1 })]
+        public void SortDecrease_WhenGetList_ShouldSortDecrease(int[] actualArr, int[] expectedArr)
+        {
+            LinkedList actual = new LinkedList(actualArr);
+            LinkedList expected = new LinkedList(expectedArr);
 
-        //    actual.SortDecrease();
-        //    Assert.AreEqual(actual, expected);
-        //}
+            actual.SortDecrease();
+            Assert.AreEqual(actual, expected);
+        }
 
-        //[TestCase(new int[] { 3, 2, 0, 1 }, new int[] { 0, 1, 2, 3 })]
-        //[TestCase(new int[] { 6, 4, 2, 5, 3, 1 }, new int[] { 1, 2, 3, 4, 5, 6 })]
-        //[TestCase(new int[] { }, new int[] { })]
-        //[TestCase(new int[] { -9, 4, -8 }, new int[] { -9, -8, 4 })]
-        //public void SortIncrease_WhenGetList_ShouldSortIncrease(int[] actualArr, int[] expectedArr)
-        //{
-        //    LinkedList actual = new LinkedList(actualArr);
-        //    LinkedList expected = new LinkedList(expectedArr);
+        [TestCase(new int[] { }, new int[] { })]
+        [TestCase(new int[] { 3, 2, 0, 1 }, new int[] { 0, 1, 2, 3 })]
+        [TestCase(new int[] { 6, 4, 2, 5, 3, 1 }, new int[] { 1, 2, 3, 4, 5, 6 })]
+        [TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 })]
+        [TestCase(new int[] { -9, 4, -8 }, new int[] { -9, -8, 4 })]
+        public void SortIncrease_WhenGetList_ShouldSortIncrease(int[] actualArr, int[] expectedArr)
+        {
+            LinkedList actual = new LinkedList(actualArr);
+            LinkedList expected = new LinkedList(expectedArr);
 
-        //    actual.SortIncrease();
-        //    Assert.AreEqual(actual, expected);
-        //}
+            actual.SortIncrease();
+            Assert.AreEqual(actual, expected);
+        }
 
         [TestCase(4, new int[] { 1, 2, 3, 6 }, new int[] { 1, 2, 3, 6 })]
         [TestCase(1, new int[] { 1, 2, 3, 6 }, new int[] { 2, 3, 6 })]
