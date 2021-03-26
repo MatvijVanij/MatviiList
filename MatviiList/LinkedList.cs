@@ -470,7 +470,6 @@ namespace MatviiList
         
         public void SortIncrease()
         {
-
             Node new_root = null;
 
             while (_root != null)
@@ -523,8 +522,6 @@ namespace MatviiList
         {
             if (Length != 0)
             {
-
-
                 Node current = _root;
                 string str = current.Value + " ";
 
