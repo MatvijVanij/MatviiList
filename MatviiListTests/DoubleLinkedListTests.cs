@@ -225,6 +225,40 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
+        [TestCase(new int[] { })]
+        public void FindMaxElement_WhenGetNullList_ShoudInvalidOperationException(int[] expectedArr)
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                DoubleLinkedList actual = new DoubleLinkedList(expectedArr);
+
+                actual.FindMaxElement();
+            });
+        }
+
+        [TestCase(3, new int[] { 1, 2, 3, 6, 6 })]
+        [TestCase(0, new int[] { 76, 1, 2, 3, 4, -3, -5 })]
+        [TestCase(5, new int[] { 1, 2, 3, 5, 7, 8 })]
+        [TestCase(6, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 })]
+        public void FindMaxIndex_WhenGetList_ShouldIndexMax(int expected, int[] actualArray)
+        {
+            DoubleLinkedList list = new DoubleLinkedList(actualArray);
+
+            int actual = list.FindMaxIndex();
+            Assert.AreEqual(actual, expected);
+        }
+
+        [TestCase(new int[] { })]
+        public void FindMaxIndex_WhenGetNullList_ShoudInvalidOperationException(int[] expectedArr)
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                DoubleLinkedList actual = new DoubleLinkedList(expectedArr);
+
+                actual.FindMaxIndex();
+            });
+        }
+
         //[TestCase(new int[] { }, new int[] { })]
         //[TestCase(new int[] { 1, 2 }, new int[] { 2, 1 })]
         //[TestCase(new int[] { -1, 0, 3 }, new int[] { 3, 0, -1 })]

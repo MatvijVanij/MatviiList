@@ -419,6 +419,7 @@ namespace MatviiList
         {
             if (Length != 0)
             {
+                int index;
                 DoubleNode max =_root;
                 DoubleNode cur=_root.Next;
 
@@ -427,11 +428,10 @@ namespace MatviiList
                     if (max.Value < cur.Value )
                     {
                         max.Value = cur.Value;
+                        index = i;
                     }
                     cur = cur.Next;
-
                 }
-                int index = GetIndexByValue(max.Value);
                 return index;
             }
             else 
@@ -439,7 +439,6 @@ namespace MatviiList
                 throw new ArgumentException("Length is 0 , no elements");
             }
         }
-
 
         //public void Revers()
         //{
