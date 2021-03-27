@@ -197,7 +197,19 @@ namespace MatviiListTests
             actual.RemoveByIndex(index);
             Assert.AreEqual(actual, expected);
         }
-        
+
+        [TestCase(5, new int[] { 11, 22, 33 })]
+        [TestCase(-1, new int[] { 11, 22, 33 })]
+        public void RemoveByIndex_WhenindexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int[] expectedArr)
+        {
+            Assert.Throws<IndexOutOfRangeException>(() =>
+            {
+                DoubleLinkedList actual = new DoubleLinkedList(expectedArr);
+
+                actual.RemoveByIndex(index);
+            });
+        }
+
         [TestCase(1, 2, new int[] { 1, 2, 3, 6 }, new int[] { 1, 6 })]
         [TestCase(0, 4, new int[] { 1, 2, 3, 4, -3, -5 }, new int[] { -3, -5 })]
         [TestCase(2, 4, new int[] { 1, 2, 3, 4, -3, -5 }, new int[] { 1, 2 })]
@@ -215,7 +227,7 @@ namespace MatviiListTests
 
         [TestCase(5, 1, new int[] { 11, 22, 33 })]
         [TestCase(-14, 1, new int[] { 11, 22, 33 })]
-        [TestCase(1, 1, new int[] { 11, 22, 33 })]
+        [TestCase(-1, 1, new int[] { 11, 22, 33 })]
         public void RemoveByIndex_WhenindexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int nElements, int[] expectedArr)
         {
             Assert.Throws<IndexOutOfRangeException>(() =>
