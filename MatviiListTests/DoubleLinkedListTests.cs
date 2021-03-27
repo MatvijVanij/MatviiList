@@ -212,5 +212,33 @@ namespace MatviiListTests
             actual.RemoveByIndex(index, nElements);
             Assert.AreEqual(actual, expected);
         }
+
+        [TestCase(11, new int[] { 11, 2, 3, 6, 6 })]
+        [TestCase(99, new int[] { 1, 2, 3, 4, -3, 99 })]
+        [TestCase(8, new int[] { 1, 2, 3, 5, 7, 8 })]
+        [TestCase(87, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 })]
+        public void FindMaxElement_WhenGetList_ShouldValueMax(int expected, int[] actualArray)
+        {
+            DoubleLinkedList list = new DoubleLinkedList(actualArray);
+
+            int actual = list.FindMaxElement();
+            Assert.AreEqual(actual, expected);
+        }
+
+        //[TestCase(new int[] { }, new int[] { })]
+        //[TestCase(new int[] { 1, 2 }, new int[] { 2, 1 })]
+        //[TestCase(new int[] { -1, 0, 3 }, new int[] { 3, 0, -1 })]
+        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, new int[] { 6, 5, 4, 3, 2, 1 })]
+        //public void Revers_WhenGetList_ShouldRevers(int[] actualArr, int[] expectedArr)
+        //{
+        //    DoubleLinkedList actual = new DoubleLinkedList(actualArr);
+        //    DoubleLinkedList expected = new DoubleLinkedList(expectedArr);
+
+        //    actual.Revers();
+        //    Assert.AreEqual(actual, expected);
+        //}
+
+
+
     }
 }

@@ -378,7 +378,7 @@ namespace MatviiList
 
             for (int i = 0; i < Length; i++)
             {
-                if (current.Value  == value)
+                if (current.Value == value)
                 {
                     return i;
                 }
@@ -387,10 +387,77 @@ namespace MatviiList
             return -1;
         }
 
-        public void ChangeByIndex(int index,int value)
+        public void ChangeByIndex(int index, int value)
         {
             GetNodeByIndex(index).Value = value;
         }
+
+        public int FindMaxElement()
+        {
+            if (Length != 0)
+            {
+                DoubleNode max = _root;
+                DoubleNode current = _root;
+
+                for (int i = 0; i < Length - 1; i++)
+                {
+                    if (max.Value < current.Next.Value)
+                    {
+                        max.Value = current.Next.Value;
+                    }
+                    current = current.Next;
+                }
+                return max.Value;
+            }
+            else
+            {
+                throw new ArgumentException("Length is 0 , no elements");
+            }
+        }
+
+        public int FindMaxIndex()
+        {
+            if (Length != 0)
+            {
+                DoubleNode max =_root;
+                DoubleNode cur=_root.Next;
+
+                for (int i = 0; i < Length-2; i++)
+                {
+                    if (max.Value < cur.Value )
+                    {
+                        max.Value = cur.Value;
+                    }
+                    cur = cur.Next;
+
+                }
+                int index = GetIndexByValue(max.Value);
+                return index;
+            }
+            else 
+            {
+                throw new ArgumentException("Length is 0 , no elements");
+            }
+        }
+
+
+        //public void Revers()
+        //{
+        //    DoubleNode current = _root;
+        //    DoubleNode tmp;
+
+        //    for (int i = 0; i < Length-1; i++)
+        //    {
+
+        //        tmp = current.Next;
+        //        current.Next = current.Previous;
+        //        current.Previous = tmp;
+
+        //        current = current.Next;
+        //    }
+
+        //    _root = _tail;
+        //}
 
         public override bool Equals(object obj)
         {
