@@ -396,18 +396,16 @@ namespace MatviiList
         {
             if (Length != 0)
             {
-                DoubleNode max = _root;
-                DoubleNode current = _root;
+                int max = _root.Value;
 
-                for (int i = 0; i < Length - 1; i++)
+                for (int i = 0; i < Length; i++)
                 {
-                    if (max.Value < current.Next.Value)
+                    if (GetNodeByIndex(i).Value > max)
                     {
-                        max.Value = current.Next.Value;
+                        max = GetNodeByIndex(i).Value;
                     }
-                    current = current.Next;
                 }
-                return max.Value;
+                return max;
             }
             else
             {
@@ -417,27 +415,35 @@ namespace MatviiList
 
         public int FindMaxIndex()
         {
+            int index = GetIndexByValue(FindMaxElement());
+
+            return index;
+        }
+
+        public int FindMinElements()
+        {
             if (Length != 0)
             {
-                int index;
-                DoubleNode max =_root;
-                DoubleNode cur=_root.Next;
-
-                for (int i = 0; i < Length-2; i++)
+                int min = _root.Value;
+                for (int i = 1; i < Length; i++)
                 {
-                    if (max.Value < cur.Value )
+                    if (min > GetNodeByIndex(i).Value)
                     {
-                        max.Value = cur.Value;
-                        index = i;
+                        min = GetNodeByIndex(i).Value;
                     }
-                    cur = cur.Next;
                 }
-                return index;
+                return min;
             }
-            else 
+            else
             {
-                throw new ArgumentException("Length is 0 , no elements");
+                throw new ArgumentException("Length list is  zero");
             }
+        }
+
+        public int FindMinIndex()
+        {
+            int index = GetIndexByValue(FindMinElements());
+            return index;
         }
 
         //public void Revers()
