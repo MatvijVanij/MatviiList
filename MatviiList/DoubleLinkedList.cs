@@ -407,20 +407,21 @@ namespace MatviiList
                 }
                 return max;
             }
-            else
-            {
-                throw new ArgumentException("Length is 0 , no elements");
-            }
+            throw new ArgumentException("Length list is  zero");
         }
 
         public int FindMaxIndex()
         {
-            int index = GetIndexByValue(FindMaxElement());
+            if (true)
+            {
+                int index = GetIndexByValue(FindMaxElement());
 
-            return index;
+                return index;
+            }
+            throw new ArgumentException("Length list is  zero");
         }
 
-        public int FindMinElements()
+        public int FindMinElement()
         {
             if (Length != 0)
             {
@@ -434,16 +435,35 @@ namespace MatviiList
                 }
                 return min;
             }
-            else
-            {
-                throw new ArgumentException("Length list is  zero");
-            }
+            throw new ArgumentException("Length list is  zero");
         }
 
         public int FindMinIndex()
         {
-            int index = GetIndexByValue(FindMinElements());
-            return index;
+            if (Length != 0)
+            {
+                int index = GetIndexByValue(FindMinElement());
+                return index;
+            }
+            throw new ArgumentException("Length list is  zero");
+        }
+
+        public void RemoveByValue(int value)
+        {
+
+            RemoveByIndex(GetIndexByValue(value));
+
+        }
+
+        public void RemoveAllByValue(int value)
+        {
+            int index = GetIndexByValue(value);
+
+            while (index != -1)
+            {
+                RemoveByIndex(index);
+                index = GetIndexByValue(value);
+            }
         }
 
         //public void Revers()

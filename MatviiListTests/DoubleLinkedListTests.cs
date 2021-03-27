@@ -197,7 +197,7 @@ namespace MatviiListTests
             actual.RemoveByIndex(index);
             Assert.AreEqual(actual, expected);
         }
-
+        
         [TestCase(1, 2, new int[] { 1, 2, 3, 6 }, new int[] { 1, 6 })]
         [TestCase(0, 4, new int[] { 1, 2, 3, 4, -3, -5 }, new int[] { -3, -5 })]
         [TestCase(2, 4, new int[] { 1, 2, 3, 4, -3, -5 }, new int[] { 1, 2 })]
@@ -211,6 +211,19 @@ namespace MatviiListTests
 
             actual.RemoveByIndex(index, nElements);
             Assert.AreEqual(actual, expected);
+        }
+
+        [TestCase(5, 1, new int[] { 11, 22, 33 })]
+        [TestCase(-14, 1, new int[] { 11, 22, 33 })]
+        [TestCase(1, 1, new int[] { 11, 22, 33 })]
+        public void RemoveByIndex_WhenindexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int nElements, int[] expectedArr)
+        {
+            Assert.Throws<IndexOutOfRangeException>(() =>
+            {
+                DoubleLinkedList actual = new DoubleLinkedList(expectedArr);
+
+                actual.RemoveByIndex(index, nElements);
+            });
         }
 
         [TestCase(11, new int[] { 11, 2, 3, 6, 6 })]
@@ -257,6 +270,82 @@ namespace MatviiListTests
 
                 actual.FindMaxIndex();
             });
+        }
+
+        [TestCase(1, new int[] { 1, 2, 3, 6, 6 })]
+        [TestCase(-5, new int[] { 1, 2, 3, 4, -3, -5 })]
+        [TestCase(0, new int[] { 0, 1, 2, 3, 5, 7, 8 })]
+        [TestCase(-3, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 })]
+        public void FindMinElement_WhenGetList_ShouldValueMin(int expected, int[] actualArray)
+        {
+            DoubleLinkedList list = new DoubleLinkedList(actualArray);
+
+            int actual = list.FindMinElement();
+            Assert.AreEqual(actual, expected);
+        }
+
+        [TestCase(new int[] { })]
+        public void FindMinElement_WhenGetNullList_ShoudInvalidOperationException(int[] expectedArr)
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                DoubleLinkedList actual = new DoubleLinkedList(expectedArr);
+
+                actual.FindMinElement();
+            });
+        }
+
+        [TestCase(0, new int[] { 1, 2, 3, 6, 6 })]
+        [TestCase(6, new int[] { 76, 1, 2, 3, 4, -3, -5 })]
+        [TestCase(3, new int[] { 1, 2, 3, -7, 5, 7, 8 })]
+        [TestCase(6, new int[] { -3, 5, 9, 0, 67, 9, -87, -1 })]
+        public void FindMinIndex_WhenGettList_ShouldIndexMin(int expected, int[] actualArray)
+        {
+            DoubleLinkedList list = new DoubleLinkedList(actualArray);
+
+            int actual = list.FindMinIndex();
+            Assert.AreEqual(actual, expected);
+        }
+
+        [TestCase(new int[] { })]
+        public void FindMinIndex_WhenGetNullList_ShoudInvalidOperationException(int[] expectedArr)
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                DoubleLinkedList actual = new DoubleLinkedList(expectedArr);
+
+                actual.FindMinIndex();
+            });
+        }
+
+
+        [TestCase(4, new int[] { 1, 2, 3, 6 }, new int[] { 1, 2, 3, 6 })]
+        [TestCase(1, new int[] { 1, 2, 3, 6 }, new int[] { 2, 3, 6 })]
+        [TestCase(-3, new int[] { 1, 2, 3, 4, -3, -5 }, new int[] { 1, 2, 3, 4, -5 })]
+        [TestCase(8, new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { 1, 2, 3, 5, 7, })]
+        [TestCase(67, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9, 0, 9, 87, -1 })]
+        public void RemoveByValue_WhenGetList_ShouldRemoveFistForValue(int value, int[] actualArr, int[] expectedArr)
+        {
+            DoubleLinkedList actual = new DoubleLinkedList(actualArr);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArr);
+
+            actual.RemoveByValue(value);
+            Assert.AreEqual(actual, expected);
+        }
+
+        [TestCase(4, new int[] { 2, 3, 6 }, new int[] { 2, 3, 6 })]
+        [TestCase(1, new int[] { 2, 3, 6 }, new int[] { 2, 3, 6 })]
+        [TestCase(1, new int[] { 1, 2, 1, 3, 6 }, new int[] { 2, 3, 6 })]
+        [TestCase(-3, new int[] { 1, -3, 2, -3, 3, 4, -3, -5 }, new int[] { 1, 2, 3, 4, -5 })]
+        [TestCase(8, new int[] { 1, 2, 8, 3, 5, 7, 8 }, new int[] { 1, 2, 3, 5, 7, })]
+        [TestCase(67, new int[] { -3, 67, 5, 9, 67, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9, 0, 9, 87, -1 })]
+        public void RemoveAllByValue_WhenGetList_ShouldRemoveAllByValue(int value, int[] actualArr, int[] expectedArr)
+        {
+            DoubleLinkedList actual = new DoubleLinkedList(actualArr);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArr);
+
+            actual.RemoveAllByValue(value);
+            Assert.AreEqual(actual, expected);
         }
 
         //[TestCase(new int[] { }, new int[] { })]
