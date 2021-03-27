@@ -128,7 +128,7 @@ namespace MatviiListTests
         [TestCase(2, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 11, 22, 33, 3, 4 })]
         [TestCase(0, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 11, 22, 33, 1, 2, 3, 4 })]
         [TestCase(2, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 11, 22, 33, 3, 4 })]
-        [TestCase(4, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4, 11, 22, 33 })]
+        [TestCase(3, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4, 11, 22, 33 })]
         public void AddByIndex_WhenGetList_ShouldAddByIndex(int index, int[] newlist, int[] actualArr, int[] expectedArr)
         {
             LinkedList list = new LinkedList(newlist);

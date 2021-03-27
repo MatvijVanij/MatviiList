@@ -230,7 +230,6 @@ namespace MatviiList
                         {
                             Node current = GetNodeByIndex(index - 1);
                             current.Next = current.Next.Next;
-                            _tail = current;
 
                         }
                         else
@@ -250,12 +249,12 @@ namespace MatviiList
 
         public void RemoveLast(int nElements)
         {
-            if (Length != 0)
+            if (Length != 0 && nElements != 0)
             {
                 if (Length > nElements)
                 {
                     Length -= nElements;
-                    _tail = GetNodeByIndex(Length - 1);
+                    _tail = GetNodeByIndex(Length - nElements);
                     _tail.Next = null;
                 }
                 else
@@ -467,7 +466,7 @@ namespace MatviiList
             }
             _root = new_root;
         }
-        
+
         public void SortIncrease()
         {
             Node new_root = null;

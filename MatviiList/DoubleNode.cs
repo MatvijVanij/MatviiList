@@ -4,14 +4,21 @@ using System.Text;
 
 namespace MatviiList
 {
-    public class Node
+    public class DoubleNode
     {
         public int Value { get; set; }
-        public Node Next { get; set; }
-        public Node(int value)
+
+        public DoubleNode Next { get; set; }
+
+        public DoubleNode Previous { get; set; }
+
+        public DoubleNode(int value)
         {
             Value = value;
             Next = null;
+            Previous = null;
+
         }
     }
+
 }
