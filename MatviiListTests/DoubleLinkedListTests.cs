@@ -76,7 +76,7 @@ namespace MatviiListTests
 
         [TestCase(2, 99, new int[] { 1, 2, 3 }, new int[] { 1, 2, 99, 3 })]
         [TestCase(4, 99, new int[] { -1, 2, 0, 4, 4 }, new int[] { -1, 2, 0, 4, 99, 4 })]
-        [TestCase(4, 99, new int[] { -1, 2, 0, 4, 4 }, new int[] { -1, 2, 0, 4, 99, 4 })]
+        [TestCase(3, 99, new int[] { -1, 2, 0, 4, 4 }, new int[] { -1, 2, 0, 99,4, 4 })]
         [TestCase(0, 99, new int[] { 1, 2, 3, 5, 7, 8 }, new int[] { 99, 1, 2, 3, 5, 7, 8 })]
         [TestCase(3, 99, new int[] { -3, 5, 9, 0, 67, 9, 87, -1 }, new int[] { -3, 5, 9, 99, 0, 67, 9, 87, -1 })]
         public void AddByIndex_WhenGetValue_ShouldAddValueByIndex(int index, int value, int[] actualArr, int[] expectedArr)
@@ -88,21 +88,21 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
-        //[TestCase(2, new int[] { }, new int[] { 11, 22, 33 }, new int[] { 11, 22, 33 })]
-        //[TestCase(0, new int[] { }, new int[] { 11, 22, 33 }, new int[] { 11, 22, 33 })]
-        //[TestCase(2, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 11, 22, 33, 3, 4 })]
-        //[TestCase(0, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 11, 22, 33, 1, 2, 3, 4 })]
-        //[TestCase(2, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 11, 22, 33, 3, 4 })]
-        //[TestCase(3, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4, 11, 22, 33 })]
-        //public void AddByIndex_WhenGetList_ShouldAddByIndex(int index, int[] newlist, int[] actualArr, int[] expectedArr)
-        //{
-        //    DoubleLinkedList list = new DoubleLinkedList(newlist);
-        //    DoubleLinkedList actual = new DoubleLinkedList(actualArr);
-        //    DoubleLinkedList expected = new DoubleLinkedList(expectedArr);
+        [TestCase(2, new int[] { }, new int[] { 11, 22, 33 }, new int[] { 11, 22, 33 })]
+        [TestCase(0, new int[] { }, new int[] { 11, 22, 33 }, new int[] { 11, 22, 33 })]
+        [TestCase(2, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 11, 22, 33, 4 })]
+        [TestCase(0, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 11, 22, 33, 1, 2, 3, 4 })]
+        [TestCase(1, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 11, 22, 33, 3, 4 })]
+        [TestCase(3, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4, 11, 22, 33 })]
+        public void AddByIndex_WhenGetList_ShouldAddByIndex(int index, int[] newlist, int[] actualArr, int[] expectedArr)
+        {
+            DoubleLinkedList list = new DoubleLinkedList(newlist);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArr);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArr);
 
-        //    actual.AddByIndex(index, list);
-        //    Assert.AreEqual(actual, expected);
-        //}
+            actual.AddByIndex(index, list);
+            Assert.AreEqual(actual, expected);
+        }
 
         [TestCase(33, 2, new int[] { 1, 2, 33, 6, 6 })]
         [TestCase(-55, 5, new int[] { 1, 2, 3, 4, -3, -55 })]
@@ -360,16 +360,44 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
+        [TestCase(new int[] { }, new int[] { })]
+        [TestCase(new int[] { 1, 2 }, new int[] { 2, 1 })]
+        [TestCase(new int[] { -1, 0, 3 }, new int[] { 3, 0, -1 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, new int[] { 6, 5, 4, 3, 2, 1 })]
+        public void Revers_WhenGetList_ShouldRevers(int[] actualArr, int[] expectedArr)
+        {
+            DoubleLinkedList actual = new DoubleLinkedList(actualArr);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArr);
+
+            actual.Revers();
+            Assert.AreEqual(actual, expected);
+        }
+
+        [TestCase(new int[] { }, new int[] { })]
+        [TestCase(new int[] { 2, 3 }, new int[] { 3, 2 })]
+        [TestCase(new int[] { 1, 2, 3 }, new int[] { 3, 2, 1 })]
+        [TestCase(new int[] { -9, 4, -8 }, new int[] { 4, -8, -9 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, new int[] { 6, 5, 4, 3, 2, 1 })]
+        public void SortDecrease_WhenGetList_ShouldSortDecrease(int[] actualArr, int[] expectedArr)
+        {
+            DoubleLinkedList actual = new DoubleLinkedList(actualArr);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArr);
+
+            actual.SortDecrease();
+            Assert.AreEqual(actual, expected);
+        }
+
         //[TestCase(new int[] { }, new int[] { })]
-        //[TestCase(new int[] { 1, 2 }, new int[] { 2, 1 })]
-        //[TestCase(new int[] { -1, 0, 3 }, new int[] { 3, 0, -1 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, new int[] { 6, 5, 4, 3, 2, 1 })]
-        //public void Revers_WhenGetList_ShouldRevers(int[] actualArr, int[] expectedArr)
+        //[TestCase(new int[] { 3, 2, 0, 1 }, new int[] { 0, 1, 2, 3 })]
+        //[TestCase(new int[] { 6, 4, 2, 5, 3, 1 }, new int[] { 1, 2, 3, 4, 5, 6 })]
+        //[TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 })]
+        //[TestCase(new int[] { -9, 4, -8 }, new int[] { -9, -8, 4 })]
+        //public void SortIncrease_WhenGetList_ShouldSortIncrease(int[] actualArr, int[] expectedArr)
         //{
         //    DoubleLinkedList actual = new DoubleLinkedList(actualArr);
         //    DoubleLinkedList expected = new DoubleLinkedList(expectedArr);
 
-        //    actual.Revers();
+        //    actual.SortIncrease();
         //    Assert.AreEqual(actual, expected);
         //}
 

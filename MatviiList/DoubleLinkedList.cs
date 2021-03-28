@@ -159,24 +159,14 @@ namespace MatviiList
                     if (Length != 0)
                     {
                         DoubleNode node = new DoubleNode(value);
-                        if (index < Length / 2)
-                        {
-                            DoubleNode current = GetNodeByIndex(index - 1);
+                        DoubleNode current = GetNodeByIndex(index - 1);
 
-                            node.Next = current.Next;
-                            current.Next.Previous = node;
-                            current.Next = node;
-                            node.Previous = current;
-                        }
-                        else
-                        {
-                            DoubleNode current = GetNodeByIndex(index);
+                        node.Next = current.Next;
+                        current.Next = node;
+                        node.Previous = current;
 
-                            node.Next = current;
-                            node.Previous = current.Previous;
-                            current.Previous = node;
-                            node.Previous.Next = node;
-                        }
+                        node.Next.Previous = node;
+
                         Length++;
 
                     }
@@ -199,40 +189,93 @@ namespace MatviiList
             }
         }
 
-        //public void AddByIndex(int index, DoubleLinkedList list)
+        //public void AddByIndex(int index, int value)
         //{
         //    if (index >= 0 && index < Length)
         //    {
         //        if (index != 0)
         //        {
-        //            if (Length != index)
+        //            if (Length != 0)
         //            {
-        //                DoubleNode current = GetNodeByIndex(index);
-        //                list._tail = current.Next;
-        //                current.Next.Previous = _tail;
-        //                current.Next = list._root;
-        //                list._root.Previous = current;
+        //                DoubleNode node = new DoubleNode(value);
+        //                if (index < Length / 2)
+        //                {
+        //                    DoubleNode current = GetNodeByIndex(index - 1);
 
+        //                    node.Next = current.Next;
+        //                    current.Next.Previous = node;
+        //                    current.Next = node;
+        //                    node.Previous = current;
+        //                }
+        //                else
+        //                {
+        //                    DoubleNode current = GetNodeByIndex(index);
 
-        //                Length += list.Length;
+        //                    node.Next = current;
+        //                    node.Previous = current.Previous;
+        //                    current.Previous = node;
+        //                    node.Previous.Next = node;
+        //                }
+        //                Length++;
 
         //            }
         //            else
         //            {
-        //                AddLast(list);
+        //                Length = 1;
+        //                _root = new DoubleNode(value);
+        //                _tail = _root;
         //            }
         //        }
         //        else
         //        {
-        //            AddFirst(list);
+        //            AddFirst(value);
         //        }
 
         //    }
         //    else
         //    {
-        //        throw new IndexOutOfRangeException("");
+        //        throw new IndexOutOfRangeException(" ");
         //    }
         //}
+
+        public void AddByIndex(int index, DoubleLinkedList list)
+        {
+            if (index >= 0 && index < Length)
+            {
+                if (index != 0)
+                {
+                    if (Length != index)
+                    {
+                        if (list.Length != 0 && !(list is null))
+                        {
+
+                            DoubleNode current = GetNodeByIndex(index);
+
+                            list._tail.Next = current.Next;
+                            current.Next = list._root;
+                            list._root.Previous = current;
+                            current.Next.Previous = list._tail;
+
+                            Length += list.Length;
+
+                        }
+                    }
+                    else
+                    {
+                        AddLast(list);
+                    }
+                }
+                else
+                {
+                    AddFirst(list);
+                }
+
+            }
+            else
+            {
+                throw new IndexOutOfRangeException("");
+            }
+        }
 
         public void RemoveFirst()
         {
@@ -450,8 +493,13 @@ namespace MatviiList
 
         public void RemoveByValue(int value)
         {
+            int index = GetIndexByValue(value);
 
-            RemoveByIndex(GetIndexByValue(value));
+            while (index != -1)
+            {
+                RemoveByIndex(index);
+                break;
+            }
 
         }
 
@@ -466,24 +514,47 @@ namespace MatviiList
             }
         }
 
-        //public void Revers()
-        //{
-        //    DoubleNode current = _root;
-        //    DoubleNode tmp;
+        public void Revers()
+        {
+            DoubleNode current = _root;
+            DoubleNode tmp = _root;
 
-        //    for (int i = 0; i < Length-1; i++)
-        //    {
+            for (int i = 1; i < Length - 1; i++)
+            {
+                tmp = current.Next;
+                current.Next = current.Previous;
+                current.Previous = tmp;
 
-        //        tmp = current.Next;
-        //        current.Next = current.Previous;
-        //        current.Previous = tmp;
+                current = current.Previous;
+            }
+            _root = _tail;
+            _tail = current;
+        }
 
-        //        current = current.Next;
-        //    }
+        public void SortDecrease()
+        {
+            
+            for (int i = 0; i < Length-1; i++)
+            {
+                DoubleNode current = _root;
 
-        //    _root = _tail;
-        //}
+                if (current.Value < current.Next.Value)
+                {
+                    DoubleNode tmp;
+                    DoubleNode tmp1;
 
+                    tmp = current.Next;
+                    current.Next = current.Next.Next;
+                    current.Next.Next = tmp;
+
+                    tmp1 = current.Next.Previous;
+                    current.Next.Previous = current.Previous;
+                    current.Previous = tmp1;
+                }
+                current = current.Next;
+            }
+        }
+        
         public override bool Equals(object obj)
         {
             if (obj is DoubleLinkedList || obj is null)
