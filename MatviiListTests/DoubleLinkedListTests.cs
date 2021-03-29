@@ -46,6 +46,17 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
+        [TestCase(new int[] { 77 })]
+        public void AddLast_WhenGetList_ShoudArgumentException(int[] actualList)
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                DoubleLinkedList actual = new DoubleLinkedList(actualList);
+
+                actual.AddLast(null);
+            });
+        }
+
         [TestCase(99, new int[] { }, new int[] { 99 })]
         [TestCase(-11, new int[] { 1, 2, 3 }, new int[] { -11, 1, 2, 3 })]
         [TestCase(33, new int[] { -1, 2, 0, 4, 4 }, new int[] { 33, -1, 2, 0, 4, 4 })]
@@ -74,6 +85,17 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
+        [TestCase(new int[] { 77, 88, 88, 999, 0 })]
+        public void AddFirst_WhenGetList_ShoudArgumentException(int[] actualList)
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                DoubleLinkedList actual = new DoubleLinkedList(actualList);
+
+                actual.AddFirst(null);
+            });
+        }
+
         [TestCase(2, 99, new int[] { 1, 2, 3 }, new int[] { 1, 2, 99, 3 })]
         [TestCase(4, 99, new int[] { -1, 2, 0, 4, 4 }, new int[] { -1, 2, 0, 4, 99, 4 })]
         [TestCase(3, 99, new int[] { -1, 2, 0, 4, 4 }, new int[] { -1, 2, 0, 99,4, 4 })]
@@ -87,6 +109,19 @@ namespace MatviiListTests
             actual.AddByIndex(index, value);
             Assert.AreEqual(actual, expected);
         }
+
+        [TestCase(5, 11, new int[] { 11, 22, 33 })]
+        [TestCase(-3, 11, new int[] { 11, 22, 33 })]
+        public void AddByIndex_WhenIndexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int value, int[] expectedArr)
+        {
+            Assert.Throws<IndexOutOfRangeException>(() =>
+            {
+                DoubleLinkedList actual = new DoubleLinkedList(expectedArr);
+
+                actual.AddByIndex(index, value);
+            });
+        }
+
 
         [TestCase(2, new int[] { }, new int[] { 11, 22, 33 }, new int[] { 11, 22, 33 })]
         [TestCase(0, new int[] { }, new int[] { 11, 22, 33 }, new int[] { 11, 22, 33 })]
@@ -102,6 +137,19 @@ namespace MatviiListTests
 
             actual.AddByIndex(index, list);
             Assert.AreEqual(actual, expected);
+        }
+
+        [TestCase(5, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3 })]
+        [TestCase(-1, new int[] { 11, 22, 33 }, new int[] { 1, 2, 3 })]
+        public void AddByIndex_WhenIndexBigerLengthOrLessZero_ShoudArgumentOutOfRangeException(int index, int[] listarray, int[] expectedArr)
+        {
+            Assert.Throws<IndexOutOfRangeException>(() =>
+            {
+                DoubleLinkedList list = new DoubleLinkedList(listarray);
+                DoubleLinkedList actual = new DoubleLinkedList(expectedArr);
+
+                actual.AddByIndex(index, list);
+            });
         }
 
         [TestCase(33, 2, new int[] { 1, 2, 33, 6, 6 })]
@@ -387,19 +435,19 @@ namespace MatviiListTests
             Assert.AreEqual(actual, expected);
         }
 
-        //[TestCase(new int[] { }, new int[] { })]
-        //[TestCase(new int[] { 3, 2, 0, 1 }, new int[] { 0, 1, 2, 3 })]
-        //[TestCase(new int[] { 6, 4, 2, 5, 3, 1 }, new int[] { 1, 2, 3, 4, 5, 6 })]
-        //[TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 })]
-        //[TestCase(new int[] { -9, 4, -8 }, new int[] { -9, -8, 4 })]
-        //public void SortIncrease_WhenGetList_ShouldSortIncrease(int[] actualArr, int[] expectedArr)
-        //{
-        //    DoubleLinkedList actual = new DoubleLinkedList(actualArr);
-        //    DoubleLinkedList expected = new DoubleLinkedList(expectedArr);
+        [TestCase(new int[] { }, new int[] { })]
+        [TestCase(new int[] { 3, 2, 0, 1 }, new int[] { 0, 1, 2, 3 })]
+        [TestCase(new int[] { 6, 4, 2, 5, 3, 1 }, new int[] { 1, 2, 3, 4, 5, 6 })]
+        [TestCase(new int[] { 1, 3, 2 }, new int[] { 1, 2, 3 })]
+        [TestCase(new int[] { -9, 4, -8 }, new int[] { -9, -8, 4 })]
+        public void SortIncrease_WhenGetList_ShouldSortIncrease(int[] actualArr, int[] expectedArr)
+        {
+            DoubleLinkedList actual = new DoubleLinkedList(actualArr);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArr);
 
-        //    actual.SortIncrease();
-        //    Assert.AreEqual(actual, expected);
-        //}
+            actual.SortIncrease();
+            Assert.AreEqual(actual, expected);
+        }
 
 
 

@@ -189,55 +189,6 @@ namespace MatviiList
             }
         }
 
-        //public void AddByIndex(int index, int value)
-        //{
-        //    if (index >= 0 && index < Length)
-        //    {
-        //        if (index != 0)
-        //        {
-        //            if (Length != 0)
-        //            {
-        //                DoubleNode node = new DoubleNode(value);
-        //                if (index < Length / 2)
-        //                {
-        //                    DoubleNode current = GetNodeByIndex(index - 1);
-
-        //                    node.Next = current.Next;
-        //                    current.Next.Previous = node;
-        //                    current.Next = node;
-        //                    node.Previous = current;
-        //                }
-        //                else
-        //                {
-        //                    DoubleNode current = GetNodeByIndex(index);
-
-        //                    node.Next = current;
-        //                    node.Previous = current.Previous;
-        //                    current.Previous = node;
-        //                    node.Previous.Next = node;
-        //                }
-        //                Length++;
-
-        //            }
-        //            else
-        //            {
-        //                Length = 1;
-        //                _root = new DoubleNode(value);
-        //                _tail = _root;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            AddFirst(value);
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        throw new IndexOutOfRangeException(" ");
-        //    }
-        //}
-
         public void AddByIndex(int index, DoubleLinkedList list)
         {
             if (index >= 0 && index < Length)
@@ -533,28 +484,69 @@ namespace MatviiList
 
         public void SortDecrease()
         {
-            
-            for (int i = 0; i < Length-1; i++)
+            DoubleNode new_root = null;
+
+            while (_root != null)
             {
-                DoubleNode current = _root;
 
-                if (current.Value < current.Next.Value)
+                DoubleNode node = _root;
+
+                _root = _root.Next;
+
+                if (new_root == null || node.Value > new_root.Value)
                 {
-                    DoubleNode tmp;
-                    DoubleNode tmp1;
-
-                    tmp = current.Next;
-                    current.Next = current.Next.Next;
-                    current.Next.Next = tmp;
-
-                    tmp1 = current.Next.Previous;
-                    current.Next.Previous = current.Previous;
-                    current.Previous = tmp1;
+                    node.Next = new_root;
+                    new_root = node;
                 }
-                current = current.Next;
+                else
+                {
+                    DoubleNode current = new_root;
+                    while (current.Next != null && !(node.Value > current.Next.Value))
+                    {
+                        current = current.Next;
+                    }
+
+                    node.Next = current.Next;
+
+                    current.Next = node;
+                }
             }
+            _root = new_root;
         }
-        
+
+        public void SortIncrease()
+        {
+            DoubleNode new_root = null;
+
+            while (_root != null)
+            {
+
+                DoubleNode node = _root;
+
+                _root = _root.Next;
+
+                if (new_root == null || node.Value < new_root.Value)
+                {
+                    node.Next = new_root;
+                    new_root = node;
+                }
+                else
+                {
+                    DoubleNode current = new_root;
+                    while (current.Next != null && !(node.Value < current.Next.Value))
+                    {
+                        current = current.Next;
+                    }
+
+                    node.Next = current.Next;
+
+                    current.Next = node;
+                }
+            }
+            _root = new_root;
+
+        }
+
         public override bool Equals(object obj)
         {
             if (obj is DoubleLinkedList || obj is null)
